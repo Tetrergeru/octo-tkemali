@@ -18,12 +18,31 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        UpdateRotation();
+        UpdatePosition();
+    }
+
+    void UpdateRotation()
+    {
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
 
         Player.transform.Rotate(new Vector3(0, ControlsSettings.MouseSensetivity * mouseX, 0));
         MainCamera.transform.Rotate(new Vector3(-ControlsSettings.MouseSensetivity * mouseY, 0, 0));
 
+        var angle = Mathf.Repeat(MainCamera.transform.localRotation.eulerAngles.x + 180, 360) - 180;
+        if (angle > ControlsSettings.VerticalAngleLowerConstraint)
+        {
+            MainCamera.transform.Rotate(new Vector3(ControlsSettings.VerticalAngleLowerConstraint - angle, 0, 0));
+        }
+        if (angle < ControlsSettings.VerticalAngleUpperConstraint)
+        {
+            MainCamera.transform.Rotate(new Vector3(ControlsSettings.VerticalAngleUpperConstraint - angle,  0, 0));
+        }
+    }
+
+    void UpdatePosition()
+    {
         var forward = Input.GetAxis("Vertical");
         var right = Input.GetAxis("Horizontal");
 

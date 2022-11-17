@@ -15,3 +15,4 @@ MonoBehaviour:
   MouseSensetivity: 3
   MoovingSpeed: 10
   JumpForce: 2000
+  VerticalAngleConstraint: 90
