@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody PlayerBody;
     public ControlsSettings ControlsSettings;
 
-    private bool _ground = true;
-
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -37,7 +35,7 @@ public class PlayerController : MonoBehaviour
         }
         if (angle < ControlsSettings.VerticalAngleUpperConstraint)
         {
-            MainCamera.transform.Rotate(new Vector3(ControlsSettings.VerticalAngleUpperConstraint - angle,  0, 0));
+            MainCamera.transform.Rotate(new Vector3(ControlsSettings.VerticalAngleUpperConstraint - angle, 0, 0));
         }
     }
 
@@ -51,34 +49,16 @@ public class PlayerController : MonoBehaviour
 
         var velocity = PlayerBody.transform.forward * forward_speed + PlayerBody.transform.right * right_speed;
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            velocity *= 1.5f;
+        }
+
         PlayerBody.velocity = new Vector3(velocity.x, PlayerBody.velocity.y, velocity.z);
 
-        if (Input.GetKeyDown(KeyCode.Space) && _ground)
+        if (Input.GetKey(KeyCode.Space))
         {
-            PlayerBody.AddForce(Vector3.up * ControlsSettings.JumpForce);
-            _ground = false;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        CheckGrondContact(collision);
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-        CheckGrondContact(collision);
-    }
-
-    void CheckGrondContact(Collision collision)
-    {
-
-        foreach (var contact in collision.contacts)
-        {
-            if (contact.point.y <= Player.transform.position.y + 0.5)
-            {
-                _ground = true;
-            }
+            BroadcastMessage("Jump", ControlsSettings.JumpForce);
         }
     }
 }
