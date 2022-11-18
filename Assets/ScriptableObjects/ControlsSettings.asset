@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: ControlsSettings
   m_EditorClassIdentifier: 
   MouseSensetivity: 3
-  MoovingSpeed: 5
+  MoovingSpeed: 2
+  RunningSpeed: 10
   JumpForce: 20000
   VerticalAngleLowerConstraint: 70
   VerticalAngleUpperConstraint: -70
+  RunFatiguePerSecond: 20
+  JumpFatigue: 20
+  FatigueRegenPerSecond: 15

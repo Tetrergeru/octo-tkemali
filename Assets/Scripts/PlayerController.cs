@@ -8,9 +8,13 @@ public class PlayerController : MonoBehaviour
     public GameObject Player;
     public Rigidbody PlayerBody;
     public ControlsSettings ControlsSettings;
+    public PlayerAttributes PlayerAttributes;
+
+    private JumpController _jumpController;
 
     void Start()
     {
+        _jumpController = GetComponentInChildren<JumpController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -51,14 +55,21 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            velocity *= 1.5f;
+            if (PlayerAttributes.Fatigue > ControlsSettings.RunFatiguePerSecond * Time.deltaTime)
+            {
+                velocity *= ControlsSettings.RunningSpeed / ControlsSettings.MoovingSpeed;
+            }
+            PlayerAttributes.Fatigue -= ControlsSettings.RunFatiguePerSecond * Time.deltaTime;
         }
 
         PlayerBody.velocity = new Vector3(velocity.x, PlayerBody.velocity.y, velocity.z);
 
         if (Input.GetKey(KeyCode.Space))
         {
-            BroadcastMessage("Jump", ControlsSettings.JumpForce);
+            var jumpMulitplyer = PlayerAttributes.Fatigue > ControlsSettings.JumpFatigue ? 1.0f : 0.5f;
+            if (_jumpController.Jump(ControlsSettings.JumpForce * jumpMulitplyer)) {
+                PlayerAttributes.Fatigue -= ControlsSettings.JumpFatigue;
+            };
         }
     }
 }

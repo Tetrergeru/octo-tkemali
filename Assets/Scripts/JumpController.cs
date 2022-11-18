@@ -20,14 +20,14 @@ public class JumpController : MonoBehaviour
             _ground = 0;
     }
 
-    public void Jump(float force)
+    public bool Jump(float force)
     {
-        Debug.Log("JumpController Jump");
         if (_ground > 0)
         {
-            Debug.Log("JumpController Jump Success");
             PawnBody.AddForce(Vector3.up * force);
             _ground = 0;
+            return true;
         }
+        return false;
     }
 }
