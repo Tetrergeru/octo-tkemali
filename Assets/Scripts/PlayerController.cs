@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody PlayerBody;
     public ControlsSettings ControlsSettings;
     public PlayerAttributes PlayerAttributes;
+    public GameObject Coursor;
 
     private JumpController _jumpController;
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateRotation();
         UpdatePosition();
+        UpdateActivation();
     }
 
     void UpdateRotation()
@@ -67,9 +70,48 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             var jumpMulitplyer = PlayerAttributes.Fatigue > ControlsSettings.JumpFatigue ? 1.0f : 0.5f;
-            if (_jumpController.Jump(ControlsSettings.JumpForce * jumpMulitplyer)) {
+            if (_jumpController.Jump(ControlsSettings.JumpForce * jumpMulitplyer))
+            {
                 PlayerAttributes.Fatigue -= ControlsSettings.JumpFatigue;
             };
         }
+    }
+
+    void UpdateActivation()
+    {
+        var obj = FindWAILA();
+        if (obj == null)
+        {
+            Coursor.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            return;
+        }
+
+        Coursor.GetComponent<Image>().color = Color.red;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            obj.SendMessage("Activate", Player);
+        }
+    }
+
+    GameObject FindWAILA()
+    {
+        var start = MainCamera.transform.position;
+        var direction = MainCamera.transform.forward;
+        var maxLength = 3;
+
+        var ok = Physics.Raycast(start, direction, out var hit, maxLength);
+
+        if (!ok)
+        {
+            Coursor.GetComponent<Image>().color = Color.red;
+            return null;
+        };
+
+        var obj = hit.collider.gameObject;
+        if (!obj.CompareTag("Activator"))
+            return null;
+
+        return obj;
     }
 }

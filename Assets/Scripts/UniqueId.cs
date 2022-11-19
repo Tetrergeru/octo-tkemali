@@ -13,7 +13,7 @@ public class UniqueId : MonoBehaviour
             Id = RandomId(10);
     }
 
-    string RandomId(int length)
+    public static string RandomId(int length)
     {
         const string symbols = "0123456789abcdef";
         var res = new StringBuilder();
