@@ -10,7 +10,12 @@ public class UniqueId : MonoBehaviour
     void Start()
     {
         if (Id == null || Id == "")
-            Id = RandomId(10);
+            RegenerateId();
+    }
+
+    public void RegenerateId()
+    {
+        Id = RandomId(10);
     }
 
     public static string RandomId(int length)

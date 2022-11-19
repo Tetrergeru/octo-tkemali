@@ -9,6 +9,6 @@ public class ContainerActivator : MonoBehaviour
     public void Activate(GameObject sender)
     {
         var inventory = sender.GetComponent<Inventory>();
-        Debug.Log($"ContainerActivator Activate sender.Inventory = {inventory.Items.Count}");  
+        Debug.Log($"sender.Inventory = {inventory.Items.Count}\nThis.Inventory = {Inventory.Items.Count}");  
     }
 }
