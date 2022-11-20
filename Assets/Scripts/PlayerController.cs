@@ -12,6 +12,20 @@ public class PlayerController : MonoBehaviour
     public PlayerAttributes PlayerAttributes;
     public GameObject Coursor;
 
+    private bool _contolsActive = true;
+
+    public void DisableControls()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        _contolsActive = false;
+    }
+
+    public void EnableControls()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        _contolsActive = true;
+    }
+
     private JumpController _jumpController;
 
     void Start()
@@ -22,9 +36,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateRotation();
-        UpdatePosition();
-        UpdateActivation();
+        if (_contolsActive)
+        {
+            UpdateRotation();
+            UpdatePosition();
+            UpdateActivation();
+        }
     }
 
     void UpdateRotation()

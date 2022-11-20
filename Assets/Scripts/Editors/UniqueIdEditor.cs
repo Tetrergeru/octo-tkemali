@@ -1,5 +1,6 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
-using System.Collections;
 using UnityEditor;
 
 [CustomEditor(typeof(UniqueId))]
@@ -15,3 +16,5 @@ public class LevelScriptEditor : Editor
         }
     }
 }
+
+#endif

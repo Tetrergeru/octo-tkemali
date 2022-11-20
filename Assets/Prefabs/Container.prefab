@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inventory: {fileID: 5993507511852081890}
+  ContainerName: Container
 --- !u!4 &8067651656464140372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2533507921637761879, guid: 4e83ed2f5ae4323bfa6bb33aeac0defe, type: 3}

@@ -5,10 +5,11 @@ using UnityEngine;
 public class ContainerActivator : MonoBehaviour
 {
     public Inventory Inventory;
+    public string ContainerName;
 
     public void Activate(GameObject sender)
     {
-        var inventory = sender.GetComponent<Inventory>();
-        Debug.Log($"sender.Inventory = {inventory.Items.Count}\nThis.Inventory = {Inventory.Items.Count}");  
+        var menuManager = sender.GetComponent<MenuManager>();
+        menuManager.OpenInventory(Inventory, ContainerName);
     }
 }
