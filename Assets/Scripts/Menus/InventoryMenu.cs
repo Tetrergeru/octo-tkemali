@@ -9,20 +9,25 @@ public class InventoryMenu : MonoBehaviour
     public GameObject Content;
     public GameObject PlayerNameButton;
     public GameObject ContainerNameButton;
+    public GameObject ItemRenderer;
 
+    private ItemRenderer _itemRenderer;
     private TransferDirection _transferDirection;
+    private Inventory _chestInventory;
+    private Inventory _playerInventory;
+    private List<GameObject> _panels = new List<GameObject>();
+
     private enum TransferDirection
     {
         FromContainerToPlayer,
         FromPlayerToContainer,
     }
 
-    private Inventory _chestInventory;
-    private Inventory _playerInventory;
-    private List<GameObject> _panels = new List<GameObject>();
 
     public void LoadInventory(Inventory chestInventory, Inventory playerInventory, string containerName)
     {
+        _itemRenderer = ItemRenderer.GetComponent<ItemRenderer>();
+
         _chestInventory = chestInventory;
         _playerInventory = playerInventory;
 
@@ -74,7 +79,7 @@ public class InventoryMenu : MonoBehaviour
         }
         _panels = new List<GameObject>();
 
-        var numberOfItems = _chestInventory.Items.Count;
+        var numberOfItems = from.Items.Count;
 
         var rect = Content.GetComponent<RectTransform>();
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, numberOfItems * 50);
@@ -103,6 +108,10 @@ public class InventoryMenu : MonoBehaviour
         var colorChanger = panelObject.AddComponent<OnHoverChangeColor>();
         colorChanger.DefaultColor = new Color(1, 1, 1, 0.1f);
         colorChanger.HoveredtColor = new Color(1, 1, 1, 0.5f);
+        colorChanger.OnHoverStart = () =>
+        {
+            _itemRenderer.SetGameObject(item.Item.Prefab);
+        };
 
         var button = panelObject.AddComponent<Button>();
         button.onClick.AddListener(() =>

@@ -17,3 +17,4 @@ MonoBehaviour:
   Weight: 0
   Price: 1
   Id: gold
+  Prefab: {fileID: 8549125195747766242, guid: 2b96b828c1c6674be973bd0c9ba77744, type: 3}

@@ -15,6 +15,8 @@ public class Item : ScriptableObject
 
     public string Id;
 
+    public GameObject Prefab;
+
     void Awake()
     {
         if (Id == null || Id == "")

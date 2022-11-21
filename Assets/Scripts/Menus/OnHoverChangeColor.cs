@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class OnHoverChangeColor : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     public Color DefaultColor = Color.white;
     public Color HoveredtColor = Color.white;
+    public Action OnHoverStart = () => {};
+    public Action OnHoverFinish = () => {};
 
     private Image _image;
 
@@ -26,10 +29,12 @@ public class OnHoverChangeColor : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         _image.color = HoveredtColor;
+        OnHoverStart();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         _image.color = DefaultColor;
+        OnHoverFinish();
     }
 }

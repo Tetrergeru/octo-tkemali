@@ -17,3 +17,4 @@ MonoBehaviour:
   Weight: 1
   Price: 1
   Id: df983a7966
+  Prefab: {fileID: 8549125195747766242, guid: 5c8dc7b074f2f7fe59f78dd4280b97f4, type: 3}
