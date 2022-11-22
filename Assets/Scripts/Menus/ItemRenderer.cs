@@ -31,7 +31,7 @@ public class ItemRenderer : MonoBehaviour
         _currentObject.transform.localPosition = -offset * scaleFactor;
 
         var layer = LayerMask.NameToLayer("UIObject");
-        foreach (Transform child in _currentObject.transform)
+        foreach (var child in _currentObject.GetComponentsInChildren<Transform>())
         {
             child.gameObject.layer = layer;
         }
