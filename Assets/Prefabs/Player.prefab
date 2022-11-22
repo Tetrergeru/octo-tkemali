@@ -615,6 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 4327435741198682474}
   InventoryMenuPrefab: {fileID: 5249732838454873945, guid: 7174d736666604d6eabb8c3f9c8a158a, type: 3}
+  DialogMenuPrefab: {fileID: 6008558398361945241, guid: a279b9b7f9683a1288bba91f7d6ae520, type: 3}
 --- !u!114 &4327435741198682474
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class InventoryMenu : MonoBehaviour
     private TransferDirection _transferDirection;
     private Inventory _chestInventory;
     private Inventory _playerInventory;
-    private List<GameObject> _panels = new List<GameObject>();
+    private ListComponent _panels;
 
     private enum TransferDirection
     {
@@ -26,6 +26,7 @@ public class InventoryMenu : MonoBehaviour
 
     public void LoadInventory(Inventory chestInventory, Inventory playerInventory, string containerName)
     {
+        _panels = Content.GetComponent<ListComponent>();
         _itemRenderer = ItemRenderer.GetComponent<ItemRenderer>();
 
         _chestInventory = chestInventory;
@@ -73,11 +74,7 @@ public class InventoryMenu : MonoBehaviour
             ? (_chestInventory, _playerInventory)
             : (_playerInventory, _chestInventory);
 
-        foreach (var panel in _panels)
-        {
-            GameObject.Destroy(panel);
-        }
-        _panels = new List<GameObject>();
+        _panels.DestroyAll();
 
         var numberOfItems = from.Items.Count;
 
@@ -86,7 +83,7 @@ public class InventoryMenu : MonoBehaviour
 
         for (var i = 0; i < numberOfItems; i++)
         {
-            _panels.Add(AddItem(i, from, to));
+            _panels.AddElement(AddItem(i, from, to));
         }
     }
 
@@ -97,21 +94,12 @@ public class InventoryMenu : MonoBehaviour
         var panelObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
 
         var transform = panelObject.GetComponent<RectTransform>();
-        transform.SetParent(Content.transform);
-        transform.anchorMin = new Vector2(0, 0.5f);
-        transform.anchorMax = new Vector2(1, 0.5f);
         transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 30);
-        transform.SetLocalPositionAndRotation(new Vector3(0, -40 * idx - 20, 0), new Quaternion());
-        transform.offsetMin = new Vector2(-50, transform.offsetMin.y);
-        transform.offsetMax = new Vector2(50, transform.offsetMax.y);
 
         var colorChanger = panelObject.AddComponent<OnHoverChangeColor>();
         colorChanger.DefaultColor = new Color(1, 1, 1, 0.1f);
         colorChanger.HoveredtColor = new Color(1, 1, 1, 0.5f);
-        colorChanger.OnHoverStart = () =>
-        {
-            _itemRenderer.SetGameObject(item.Item.Prefab);
-        };
+        colorChanger.OnHoverStart = () => _itemRenderer.SetGameObject(item.Item.Prefab);
 
         var button = panelObject.AddComponent<Button>();
         button.onClick.AddListener(() =>
@@ -127,7 +115,7 @@ public class InventoryMenu : MonoBehaviour
         return panelObject;
     }
 
-    private void AddText(Vector3 position, string content, GameObject parent)
+    public static void AddText(Vector3 position, string content, GameObject parent)
     {
         var textObject = new GameObject("Text", typeof(RectTransform), typeof(CanvasRenderer));
 

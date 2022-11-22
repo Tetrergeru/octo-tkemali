@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public PlayerController Player;
 
     public GameObject InventoryMenuPrefab;
+    public GameObject DialogMenuPrefab;
 
     private MenuState _state;
     private GameObject _currentMenu;
@@ -38,5 +39,15 @@ public class MenuManager : MonoBehaviour
 
         _currentMenu = Instantiate(InventoryMenuPrefab, new Vector3(), new Quaternion(), this.transform);
         _currentMenu.GetComponent<InventoryMenu>().LoadInventory(inventory, GetComponent<Inventory>(), containerName);
+    }
+
+    public void OpenDialog(Dialog dialog, string npcName)
+    {
+        _state = MenuState.Open;
+        Time.timeScale = 0;
+        Player.DisableControls();
+
+        _currentMenu = Instantiate(DialogMenuPrefab, new Vector3(), new Quaternion(), this.transform);
+        _currentMenu.GetComponent<DialogMenu>().LoadDialog(dialog, npcName);
     }
 }

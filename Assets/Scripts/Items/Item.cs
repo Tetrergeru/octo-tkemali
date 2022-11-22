@@ -23,10 +23,3 @@ public class Item : ScriptableObject
             Id = UniqueId.RandomId(10);
     }
 }
-
-public enum ItemType
-{
-    Gold,
-    Food,
-    Misk,
-}
