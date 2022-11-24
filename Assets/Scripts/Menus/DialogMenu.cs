@@ -31,34 +31,34 @@ public class DialogMenu : MonoBehaviour
             var button = panel.AddComponent<Button>();
             button.onClick.AddListener(() =>
             {
-                {
-                    var textObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
+                // {
+                //     var textObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
 
-                    var text = textObject.AddComponent<TextMeshProUGUI>();
-                    text.text = topic.Query;
-                    text.fontSize = 20;
-                    text.color = Color.blue;
-                    text.verticalAlignment = VerticalAlignmentOptions.Middle;
+                //     var text = textObject.AddComponent<TextMeshProUGUI>();
+                //     text.text = topic.Query;
+                //     text.fontSize = 20;
+                //     text.color = Color.blue;
+                //     text.verticalAlignment = VerticalAlignmentOptions.Middle;
 
-                    DialogContent.GetComponent<ListComponent>().AddElement(textObject);
-                }
-                {
-                    var textObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
+                //     DialogContent.GetComponent<ListComponent>().AddElement(textObject);
+                // }
+                // {
+                //     var textObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
 
-                    var text = textObject.AddComponent<TextMeshProUGUI>();
-                    text.text = topic.Response;
-                    text.fontSize = 20;
-                    text.color = Color.black;
-                    text.verticalAlignment = VerticalAlignmentOptions.Middle;
-                    DialogContent.GetComponent<ListComponent>().AddElement(textObject);
-                }
+                //     var text = textObject.AddComponent<TextMeshProUGUI>();
+                //     text.text = topic.Response;
+                //     text.fontSize = 20;
+                //     text.color = Color.black;
+                //     text.verticalAlignment = VerticalAlignmentOptions.Middle;
+                //     DialogContent.GetComponent<ListComponent>().AddElement(textObject);
+                // }
             });
 
             var textObject = new GameObject("Text", typeof(RectTransform), typeof(CanvasRenderer));
             textObject.transform.SetParent(panel.transform);
 
             var text = textObject.AddComponent<TextMeshProUGUI>();
-            text.text = topic.Query;
+            // text.text = topic.Query;
             text.fontSize = 20;
             text.color = Color.black;
             text.verticalAlignment = VerticalAlignmentOptions.Middle;

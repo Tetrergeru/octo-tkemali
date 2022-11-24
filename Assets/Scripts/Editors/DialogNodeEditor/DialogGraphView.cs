@@ -19,8 +19,67 @@ public class DialogGraphView : GraphView
         var grid = new GridBackground();
         Insert(0, grid);
         grid.StretchToParentSize();
+    }
 
-        MakeStartNode();
+    public void Load(Dialog dialog)
+    {
+        if (dialog.Topics == null)
+        {
+            dialog.Topics = new List<Topic>();
+        }
+
+        var inputs = new Dictionary<string, (Port, DialogNode)>();
+        foreach (var topic in dialog.Topics)
+        {
+            var node = AddNodeWithParams(topic.Position, topic.Id);
+            var port = node.inputContainer.Query<Port>().First();
+            node.Answer = topic.Answer;
+
+            inputs[topic.Id] = (port, node);
+        }
+
+        foreach (var topic in dialog.Topics)
+        {
+            var (_, node) = inputs[topic.Id];
+            foreach (var question in topic.Questions)
+            {
+                var output = node.MakeOutput(question.Text);
+                var (input, _) = inputs[question.NextTopicId];
+
+                var edge = input.ConnectTo(output);
+                AddElement(edge);
+
+                node.RefreshExpandedState();
+                node.RefreshPorts();
+            }
+        }
+    }
+
+    public void Save(Dialog dialog)
+    {
+        dialog.Topics = new List<Topic>();
+        this.Query<DialogNode>().ForEach(node =>
+        {
+            var topic = new Topic();
+            topic.Id = node.Id;
+            topic.Answer = node.Answer;
+            topic.Position = node.GetPosition().position;
+
+            foreach (var (text, id) in node.GetOutputs())
+                topic.Questions.Add(new Topic.Question { Text = text, NextTopicId = id });
+
+            dialog.Topics.Add(topic);
+        });
+    }
+
+    public void AddNode()
+    {
+        new DialogNode(this);
+    }
+
+    private DialogNode AddNodeWithParams(Vector2 position, string id)
+    {
+        return new DialogNode(this, position, id);
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -34,101 +93,5 @@ public class DialogGraphView : GraphView
         }
 
         return compatiblePorts;
-    }
-
-    public void AddNode()
-    {
-        var node = new DialogNode
-        {
-            title = "Stage",
-            ID = Guid.NewGuid().ToString(),
-            Start = false,
-        };
-
-        node.SetPosition(new Rect(0, 0, 100, 200));
-
-        var port = MakePort(node, Direction.Input);
-        port.portName = "Input";
-        node.inputContainer.Add(port);
-
-        var button = new Button(() => MakeOutput(node));
-        button.text = "Add Output";
-        node.titleContainer.Add(button);
-
-        var textField = new TextField
-        {
-            name = "",
-            value = "Answer",
-        };
-        node.extensionContainer.Add(textField);
-
-        node.RefreshExpandedState();
-        node.RefreshPorts();
-
-        AddElement(node);
-    }
-
-    private void MakeStartNode()
-    {
-        var node = new DialogNode
-        {
-            title = "Start",
-            ID = Guid.NewGuid().ToString(),
-            Start = true,
-        };
-
-        node.SetPosition(new Rect(200, 200, 100, 200));
-
-        var button = new Button(() => MakeOutput(node));
-        button.text = "Add Output";
-        node.titleContainer.Add(button);
-
-        node.RefreshExpandedState();
-        node.RefreshPorts();
-
-        AddElement(node);
-    }
-
-    private Port MakePort(DialogNode node, Direction direction, Port.Capacity capacity = Port.Capacity.Single)
-    {
-        return node.InstantiatePort(Orientation.Horizontal, direction, capacity, typeof(bool));
-    }
-
-    private void MakeOutput(DialogNode node)
-    {
-        var element = new VisualElement();
-        element.style.flexDirection = new StyleEnum<FlexDirection>(FlexDirection.Row);
-
-        var output = MakePort(node, Direction.Output);
-
-        var count = 0;
-        node.outputContainer.Query("connector").ForEach((_) => count++);
-        var name = $"Output {count}";
-        output.portName = "";
-        output.name = name;
-
-        var textField = new TextField
-        {
-            name = "",
-            value = name,
-        };
-        textField.RegisterValueChangedCallback(e => output.name = e.newValue);
-        node.contentContainer.Add(textField);
-
-        var button = new Button(() =>
-        {
-            DeleteElements(output.connections);
-            node.outputContainer.Remove(element);
-        });
-        button.text = "x";
-
-        element.Add(button);
-        element.Add(textField);
-        element.Add(output);
-
-        node.outputContainer.Add(element);
-
-        node.RefreshExpandedState();
-        node.RefreshPorts();
     }
 }

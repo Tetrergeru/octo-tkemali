@@ -13,8 +13,25 @@ MonoBehaviour:
   m_Name: SimpleDialog
   m_EditorClassIdentifier: 
   Topics:
-  - Query: Hello
-    Response: Greetings, friend
-  - Query: How do you do
-    Response: I am imprisoned here, so not very well
-  Parents: []
+  - Id: 0259e5bc-b1d0-46af-b033-11e153841123
+    Answer: 
+    Questions:
+    - Text: Hello
+      NextTopicId: 1100591a-5aae-4095-bf2d-fd7b5ad9dec2
+    - Text: How are you?
+      NextTopicId: 3d1c65e8-bff3-4abd-94fc-eed14db9682d
+    Position: {x: 118, y: 127}
+  - Id: 1100591a-5aae-4095-bf2d-fd7b5ad9dec2
+    Answer: Greetings.
+    Questions: []
+    Position: {x: 491, y: 127}
+  - Id: 3d1c65e8-bff3-4abd-94fc-eed14db9682d
+    Answer: I am imprisoned, so not very well.                           dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    Questions:
+    - Text: ddddddddddddddddddddddddddddddddddddddddd
+      NextTopicId: 5e672a25-4c93-4ae7-9486-46625c02ccd1
+    Position: {x: 491, y: 249}
+  - Id: 5e672a25-4c93-4ae7-9486-46625c02ccd1
+    Answer: Answer
+    Questions: []
+    Position: {x: 819, y: 249}
