@@ -26,6 +26,12 @@ public class ListComponent : MonoBehaviour
         this.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, TotalHeight());
     }
 
+    public void DeleteLastElement() 
+    {
+        Destroy(_elements[_elements.Count - 1]);
+        _elements.RemoveAt(_elements.Count - 1);
+    }
+
     public void DestroyAll()
     {
         foreach (var element in _elements)
@@ -70,5 +76,4 @@ public class ListComponent : MonoBehaviour
         transform.offsetMin = new Vector2(PaddingFromBorder, transform.offsetMin.y);
         transform.offsetMax = new Vector2(-PaddingFromBorder, transform.offsetMax.y);
     }
-
 }

@@ -928,6 +928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: {fileID: 1848040673797627148}
   DialogContent: {fileID: 2195217395877517619}
+  DialogView: {fileID: 405148119860758378}
   TopicsContent: {fileID: 1477360290172550137}
 --- !u!1 &6799228154888758138
 GameObject:
