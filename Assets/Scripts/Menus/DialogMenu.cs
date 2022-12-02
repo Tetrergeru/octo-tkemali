@@ -12,13 +12,12 @@ public class DialogMenu : MonoBehaviour
     public GameObject TopicsContent;
 
     private float _dialogContentOffset;
-    private Dialog _currentDialog;
+    private DialogManager _currentDialog;
     private int _numberOfButtons;
-    private bool _choiceRequired;
 
     public void LoadDialog(Dialog dialog, string npcName)
     {
-        _currentDialog = dialog;
+        _currentDialog = new DialogManager(dialog);
 
         var npcNameText = CharacterName.GetComponent<TextMeshProUGUI>();
         npcNameText.text = npcName;
@@ -26,24 +25,13 @@ public class DialogMenu : MonoBehaviour
         npcNameText.outlineWidth = 0.2f;
 
         var prevTopics = new Dictionary<string, string>();
-        foreach (var topic in _currentDialog.Topics)
+        foreach (var question in _currentDialog.StartTopics())
         {
-            foreach (var question in topic.Questions)
-            {
-                prevTopics[question.NextTopicId] = topic.Id;
-            }
-        }
-
-        foreach (var topic in _currentDialog.Topics)
-        {
-            if (prevTopics.ContainsKey(topic.Id))
-                continue;
-            foreach (var question in topic.Questions)
-                RenderQuestionButton(question);
+            RenderQuestionButton(question);
         }
     }
 
-    private void RenderQuestionButton(Topic.Question question)
+    private void RenderQuestionButton(Question question)
     {
         var panel = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
         panel.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 30);
@@ -55,7 +43,11 @@ public class DialogMenu : MonoBehaviour
         var button = panel.AddComponent<Button>();
         button.onClick.AddListener(() =>
         {
-            if (_choiceRequired) return;
+            if (_currentDialog.InConversation)
+            {
+                Debug.Log($"State is {_currentDialog._state.Text}");
+                return;
+            }
             AskQuestion(question);
         });
 
@@ -71,15 +63,13 @@ public class DialogMenu : MonoBehaviour
         TopicsContent.GetComponent<ListComponent>().AddElement(panel);
     }
 
-    private void AskQuestion(Topic.Question question)
+    private void AskQuestion(Question question)
     {
         AddText(question.Text, Color.blue);
-        var topic = GetTopicById(question.NextTopicId);
-        AddText(topic.Answer, Color.black);
+        var topic = _currentDialog.PlayerSays(question);
+        AddText(topic.Text, Color.black);
 
-        _choiceRequired = topic.Questions.Count != 0;
-
-        foreach (var nextQuestion in topic.Questions)
+        foreach (var nextQuestion in _currentDialog.WhatToSay())
         {
             AddChoiceButton(nextQuestion);
         }
@@ -100,7 +90,7 @@ public class DialogMenu : MonoBehaviour
         DialogContent.GetComponent<ListComponent>().AddElement(textObject);
     }
 
-    private void AddChoiceButton(Topic.Question question)
+    private void AddChoiceButton(Question question)
     {
         _numberOfButtons++;
 
@@ -138,7 +128,4 @@ public class DialogMenu : MonoBehaviour
         }
         _numberOfButtons = 0;
     }
-
-    private Topic GetTopicById(string id)
-        => _currentDialog.Topics.Find(it => it.Id == id);
 }

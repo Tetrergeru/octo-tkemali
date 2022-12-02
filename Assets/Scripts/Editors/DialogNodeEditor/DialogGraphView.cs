@@ -23,63 +23,93 @@ public class DialogGraphView : GraphView
 
     public void Load(Dialog dialog)
     {
-        if (dialog.Topics == null)
-        {
-            dialog.Topics = new List<Topic>();
-        }
-
-        var inputs = new Dictionary<string, (Port, DialogNode)>();
+        var inputs = new Dictionary<string, Port>();
+        var edgeRequests = new List<(Port output, string inputId)>();
         foreach (var topic in dialog.Topics)
         {
-            var node = AddNodeWithParams(topic.Position, topic.Id);
-            var port = node.inputContainer.Query<Port>().First();
-            node.Answer = topic.Answer;
-
-            inputs[topic.Id] = (port, node);
-        }
-
-        foreach (var topic in dialog.Topics)
-        {
-            var (_, node) = inputs[topic.Id];
-            foreach (var question in topic.Questions)
+            switch (topic)
             {
-                var output = node.MakeOutput(question.Text);
-                var (input, _) = inputs[question.NextTopicId];
-
-                var edge = input.ConnectTo(output);
-                AddElement(edge);
-
-                node.RefreshExpandedState();
-                node.RefreshPorts();
+                case ExactAnswer ea:
+                    {
+                        var node = new AnswerNode(this, topic.PropPosition, topic.PropId);
+                        node.Text = ea.Text;
+                        inputs[topic.PropId] = node.Input;
+                        foreach (var nextTopicId in ea.NextTopicIds)
+                            edgeRequests.Add((node.Output, nextTopicId));
+                        if (ea.Action != null && ea.Action != "")
+                            edgeRequests.Add((node.Action, ea.Action));
+                        AddElement(node);
+                        break;
+                    }
+                case Question q:
+                    {
+                        var node = new QuestionNode(this, topic.PropPosition, topic.PropId);
+                        node.Text = q.Text;
+                        inputs[topic.PropId] = node.Input;
+                        edgeRequests.Add((node.Output, q.AnswerId));
+                        AddElement(node);
+                        break;
+                    }
+                case Condition c:
+                    {
+                        var node = new ConditionNode(this, topic.PropPosition, topic.PropId);
+                        foreach (var @case in c.Cases)
+                        {
+                            var port = node.MakeCondition(@case.Condition);
+                            inputs[topic.PropId] = port;
+                            edgeRequests.Add((port, @case.NextId));
+                        }
+                        edgeRequests.Add((node.Other, c.Default.NextId));
+                        inputs[topic.PropId] = node.Input;
+                        AddElement(node);
+                        break;
+                    }
+                case DialogAction a:
+                    {
+                        var node = new ActionNode(this, topic.PropPosition, topic.PropId);
+                        node.Text = a.Script;
+                        inputs[topic.PropId] = node.Input;
+                        AddElement(node);
+                        break;
+                    }
             }
+        }
+        foreach (var (output, inputId) in edgeRequests)
+        {
+            var edge = output.ConnectTo(inputs[inputId]);
+            AddElement(edge);
         }
     }
 
     public void Save(Dialog dialog)
     {
-        dialog.Topics = new List<Topic>();
-        this.Query<DialogNode>().ForEach(node =>
-        {
-            var topic = new Topic();
-            topic.Id = node.Id;
-            topic.Answer = node.Answer;
-            topic.Position = node.GetPosition().position;
-
-            foreach (var (text, id) in node.GetOutputs())
-                topic.Questions.Add(new Topic.Question { Text = text, NextTopicId = id });
-
-            dialog.Topics.Add(topic);
-        });
+        dialog.Clear();
+        this.Query<DialogNode>().ForEach(node => dialog.Add(node.Save()));
     }
 
-    public void AddNode()
+    public void AddAnswerNode()
     {
-        new DialogNode(this);
+        this.AddElement(new AnswerNode(this));
     }
 
-    private DialogNode AddNodeWithParams(Vector2 position, string id)
+    public void AddQuestionNode()
     {
-        return new DialogNode(this, position, id);
+        this.AddElement(new QuestionNode(this));
+    }
+
+    public void AddActionNode()
+    {
+        this.AddElement(new ActionNode(this));
+    }
+
+    public void AddConditionNode()
+    {
+        this.AddElement(new ConditionNode(this));
+    }
+
+    private AnswerNode AddNodeWithParams(Vector2 position, string id)
+    {
+        return new AnswerNode(this, position, id);
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)

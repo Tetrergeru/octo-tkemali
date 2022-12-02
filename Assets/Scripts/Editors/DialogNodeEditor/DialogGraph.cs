@@ -41,9 +41,21 @@ public class DialogGraph : EditorWindow
     {
         var toolbar = new Toolbar();
 
-        var makeNodeButton = new Button(() => _graphView.AddNode());
-        makeNodeButton.text = "Add Node";
-        toolbar.Add(makeNodeButton);
+        var addAnswerButton = new Button(() => _graphView.AddAnswerNode());
+        addAnswerButton.text = "Add Answer";
+        toolbar.Add(addAnswerButton);
+
+        var addQuestionButton = new Button(() => _graphView.AddQuestionNode());
+        addQuestionButton.text = "Add Question";
+        toolbar.Add(addQuestionButton);
+
+        var addActionButton = new Button(() => _graphView.AddActionNode());
+        addActionButton.text = "Add Action";
+        toolbar.Add(addActionButton);
+
+        var addConditionButton = new Button(() => _graphView.AddConditionNode());
+        addConditionButton.text = "Add Condition";
+        toolbar.Add(addConditionButton);
 
         var saveButton = new Button(() => _graphView.Save(_targetObject));
         saveButton.text = "Save";
