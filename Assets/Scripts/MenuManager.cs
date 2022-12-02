@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     public PlayerController Player;
+    public GlobalCtx GlobalCtx = new GlobalCtx();
 
     public GameObject InventoryMenuPrefab;
     public GameObject DialogMenuPrefab;
@@ -48,6 +49,6 @@ public class MenuManager : MonoBehaviour
         Player.DisableControls();
 
         _currentMenu = Instantiate(DialogMenuPrefab, new Vector3(), new Quaternion(), this.transform);
-        _currentMenu.GetComponent<DialogMenu>().LoadDialog(dialog, npcName);
+        _currentMenu.GetComponent<DialogMenu>().LoadDialog(dialog, npcName, GlobalCtx);
     }
 }

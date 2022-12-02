@@ -44,8 +44,13 @@ public class Condition : ITopic
     public List<Case> Cases = new List<Case>();
     public Case Default;
 
-    public Case EvaluateCase()
+    public Case EvaluateCase(GlobalCtx globalCtx)
     {
+        foreach (var @case in Cases)
+        {
+            if (globalCtx.EvaluateExpression(@case.Condition) == "true")
+                return @case;
+        }
         return Default;
     }
 
@@ -66,4 +71,9 @@ public class DialogAction : ITopic
     public string Id;
     public Vector2 Position;
     public string Script;
+
+    public void Evaluate(GlobalCtx globalCtx)
+    {
+        globalCtx.Evaluate(Script);
+    }
 }

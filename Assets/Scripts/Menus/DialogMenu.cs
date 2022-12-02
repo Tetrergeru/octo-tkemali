@@ -15,9 +15,9 @@ public class DialogMenu : MonoBehaviour
     private DialogManager _currentDialog;
     private int _numberOfButtons;
 
-    public void LoadDialog(Dialog dialog, string npcName)
+    public void LoadDialog(Dialog dialog, string npcName, GlobalCtx globalCtx)
     {
-        _currentDialog = new DialogManager(dialog);
+        _currentDialog = new DialogManager(dialog, globalCtx);
 
         var npcNameText = CharacterName.GetComponent<TextMeshProUGUI>();
         npcNameText.text = npcName;
@@ -45,7 +45,6 @@ public class DialogMenu : MonoBehaviour
         {
             if (_currentDialog.InConversation)
             {
-                Debug.Log($"State is {_currentDialog._state.Text}");
                 return;
             }
             AskQuestion(question);

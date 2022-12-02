@@ -4,18 +4,19 @@ using System.Linq;
 public class DialogManager
 {
     private Dialog _dialog;
+    private GlobalCtx _globalCtx;
 
+    private ExactAnswer _state;
     private Dictionary<string, ITopic> _topics;
-
     private List<Question> _startTopics = new List<Question>();
 
-    public ExactAnswer _state;
 
     public bool InConversation => _state != null;
 
-    public DialogManager(Dialog dialog)
+    public DialogManager(Dialog dialog, GlobalCtx globalCtx)
     {
         _dialog = dialog;
+        _globalCtx = globalCtx;
         _topics = _dialog.Topics.ToDictionary(it => it.PropId, it => it);
         EvaluateTopics();
     }
@@ -71,6 +72,8 @@ public class DialogManager
         _state = state;
         if (_state.NextTopicIds.Count == 0)
             _state = null;
+        if (state.Action != null)
+            _globalCtx.Evaluate((GetTopic(state.Action) as DialogAction)?.Script ?? "");
         return state;
     }
 
@@ -82,7 +85,7 @@ public class DialogManager
         {
             Question q => GetAnswer(GetTopic(q.AnswerId)),
             ExactAnswer ea => ea,
-            Condition c => GetAnswer(GetTopic(c.EvaluateCase().NextId)),
+            Condition c => GetAnswer(GetTopic(c.EvaluateCase(_globalCtx).NextId)),
             _ => throw new System.Exception(),
         };
     }
