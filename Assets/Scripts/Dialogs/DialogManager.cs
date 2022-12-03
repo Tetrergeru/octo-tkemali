@@ -42,6 +42,9 @@ public class DialogManager
                         nonStartTopics.Add(next.NextId);
                     }
                     break;
+                case DialogAction a:
+                    nonStartTopics.Add(topic.PropId);
+                    break;
             }
         }
         _startTopics = new List<Question>();
@@ -70,6 +73,9 @@ public class DialogManager
     {
         var state = GetAnswer(question);
         _state = state;
+        if (_state == null)
+            return null;
+
         if (_state.NextTopicIds.Count == 0)
             _state = null;
         if (state.Action != null)

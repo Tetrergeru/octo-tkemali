@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e456878c247dc599140bd6a7d6a1c, type: 3}
+  m_Name: AppleQuest
+  m_EditorClassIdentifier: 
+  ExactAnswers:
+  - Id: 09a1fab1-a9fd-4b00-84e4-d4be4c2f4c35
+    Position: {x: -238, y: -37}
+    Text: Greetings
+    NextTopicIds: []
+    Action: 
+  - Id: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
+    Position: {x: -4, y: 273}
+    Text: I am imprisoned here, so not very good
+    NextTopicIds:
+    - 501ecf66-bbb8-4b95-9acd-01067a06edf2
+    - d53c6265-b799-4fd4-8715-5b64709dda2e
+    Action: 
+  - Id: bcebe98f-d0c9-4016-9f88-c236c6e5ba48
+    Position: {x: -4, y: 66}
+    Text: Better now, when you agreed to help
+    NextTopicIds:
+    - 0e541af2-8658-40e4-aaaa-cfeab44abf43
+    - 811fbd88-7ecd-4804-abf4-9645478c98e4
+    Action: 
+  - Id: 9c8304fc-ddad-40d2-9875-408c216db606
+    Position: {x: 450, y: 105}
+    Text: Ok, you do you
+    NextTopicIds: []
+    Action: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
+  - Id: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
+    Position: {x: 450, y: -23}
+    Text: Well, hope uou will find some
+    NextTopicIds: []
+    Action: 
+  - Id: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
+    Position: {x: 450, y: 364}
+    Text: Please, bring me an apple.
+    NextTopicIds: []
+    Action: ea598076-4856-4435-8803-7ea853e1eff3
+  - Id: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
+    Position: {x: 450, y: 243}
+    Text: Fine, fine
+    NextTopicIds: []
+    Action: 
+  Questions:
+  - Id: b829977d-10a1-4cfa-8d05-7b027729ca24
+    Position: {x: -452, y: 202}
+    Text: How are you
+    AnswerId: 5daf81ab-9355-40a8-a670-cab24b0de4a4
+  - Id: b21ef810-7b33-4ce2-bd8e-e707b3d0d483
+    Position: {x: -452, y: -37}
+    Text: Hello
+    AnswerId: 09a1fab1-a9fd-4b00-84e4-d4be4c2f4c35
+  - Id: 501ecf66-bbb8-4b95-9acd-01067a06edf2
+    Position: {x: 236, y: 243}
+    Text: Well, good luck then
+    AnswerId: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
+  - Id: d53c6265-b799-4fd4-8715-5b64709dda2e
+    Position: {x: 236, y: 340}
+    Text: Maybe, I can help you?
+    AnswerId: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
+  - Id: 0e541af2-8658-40e4-aaaa-cfeab44abf43
+    Position: {x: 236, y: 1}
+    Text: I have not found an apple yet
+    AnswerId: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
+  - Id: 811fbd88-7ecd-4804-abf4-9645478c98e4
+    Position: {x: 236, y: 105}
+    Text: I couldn't find you an apple, sorry
+    AnswerId: 9c8304fc-ddad-40d2-9875-408c216db606
+  Conditions:
+  - Id: 5daf81ab-9355-40a8-a670-cab24b0de4a4
+    Position: {x: -238, y: 202}
+    Cases:
+    - Condition: quest_apple == 50
+      NextId: bcebe98f-d0c9-4016-9f88-c236c6e5ba48
+    Default:
+      Condition: 
+      NextId: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
+  DialogActions:
+  - Id: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
+    Position: {x: 664, y: 129}
+    Script: quest_apple  = 0
+  - Id: ea598076-4856-4435-8803-7ea853e1eff3
+    Position: {x: 664, y: 388}
+    Script: quest_apple  = 50

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Dialog", menuName = "ScriptableObjects/Dialog", order = 1)]
@@ -20,7 +21,7 @@ public class Dialog : ScriptableObject
 
     public void Add(ITopic topic)
     {
-        switch (topic) 
+        switch (topic)
         {
             case ExactAnswer v:
                 ExactAnswers.Add(v);
@@ -37,12 +38,20 @@ public class Dialog : ScriptableObject
         }
     }
 
-    public IEnumerable<ITopic> Topics {
-        get {
-            foreach(var v in ExactAnswers) yield return v;
-            foreach(var v in Questions) yield return v;
-            foreach(var v in Conditions) yield return v;
-            foreach(var v in DialogActions) yield return v;
+    public IEnumerable<ITopic> Topics
+    {
+        get
+        {
+            foreach (var v in ExactAnswers) yield return v;
+            foreach (var v in Questions) yield return v;
+            foreach (var v in Conditions) yield return v;
+            foreach (var v in DialogActions) yield return v;
         }
+    }
+
+    public void Persist()
+    {
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssetIfDirty(AssetDatabase.GUIDFromAssetPath(AssetDatabase.GetAssetPath(this)));
     }
 }

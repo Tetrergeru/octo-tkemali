@@ -68,7 +68,7 @@ public class AnswerNode : DialogNode
         Input.portName = "";
         this.inputContainer.Add(Input);
 
-        Output = this.MakePort(Direction.Output);
+        Output = this.MakePort(Direction.Output, Port.Capacity.Multi);
         Output.portName = "";
         this.outputContainer.Add(Output);
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -46,7 +47,8 @@ public class DialogGraphView : GraphView
                         var node = new QuestionNode(this, topic.PropPosition, topic.PropId);
                         node.Text = q.Text;
                         inputs[topic.PropId] = node.Input;
-                        edgeRequests.Add((node.Output, q.AnswerId));
+                        if (q.AnswerId != null && q.AnswerId != "")
+                            edgeRequests.Add((node.Output, q.AnswerId));
                         AddElement(node);
                         break;
                     }
@@ -85,6 +87,7 @@ public class DialogGraphView : GraphView
     {
         dialog.Clear();
         this.Query<DialogNode>().ForEach(node => dialog.Add(node.Save()));
+        dialog.Persist();
     }
 
     public void AddAnswerNode()
@@ -118,10 +121,37 @@ public class DialogGraphView : GraphView
 
         foreach (var port in ports)
         {
-            if (port != startPort && port.node != startPort.node)
+            if (IsCompatible(port, startPort))
                 compatiblePorts.Add(port);
         }
 
         return compatiblePorts;
+    }
+
+    private bool IsCompatible(Port startPort, Port otherPort)
+    {
+        return startPort != otherPort
+            && startPort.node != otherPort.node
+            && startPort.portType == otherPort.portType
+            && (
+                IsFromTo<QuestionNode, AnswerNode>(startPort, otherPort)
+                || IsFromTo<QuestionNode, ConditionNode>(startPort, otherPort)
+                || IsFromTo<ConditionNode, AnswerNode>(startPort, otherPort)
+                || IsFromTo<AnswerNode, QuestionNode>(startPort, otherPort)
+                || IsFromTo<AnswerNode, ActionNode>(startPort, otherPort)
+            )
+            ;
+    }
+
+    private static bool IsFromTo<From, To>(Port fst, Port snd)
+    where From : DialogNode
+    where To : DialogNode
+    {
+        var from = fst.direction == Direction.Output ? fst : snd;
+        var to = fst.direction == Direction.Input ? fst : snd;
+
+        if (from == to) return false;
+
+        return from.node is From && to.node is To;
     }
 }

@@ -8,12 +8,18 @@ public class DialogEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
         if (GUILayout.Button("Edit"))
         {
             var editor = EditorWindow.GetWindow<DialogGraph>();
             editor.Load((Dialog)target);
         }
+        if (GUILayout.Button("Clear"))
+        {
+            var dialog = (Dialog)target;
+            dialog.Clear();
+            dialog.Persist();
+        }
+        DrawDefaultInspector();
     }
 }
 
