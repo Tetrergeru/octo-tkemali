@@ -5161,7 +5161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d072a322da021898d819fd7c7aea64f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dialog: {fileID: 11400000, guid: 91b75a0143d1f0cf78604a8a8da1800b, type: 2}
+  Dialog: {fileID: 11400000, guid: 8ef1ce7b32c516a05ae4662b73155d55, type: 2}
   NPCName: Prisoner
 --- !u!1 &1452180103
 GameObject:

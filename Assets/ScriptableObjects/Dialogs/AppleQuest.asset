@@ -18,19 +18,13 @@ MonoBehaviour:
     Text: Greetings
     NextTopicIds: []
     Action: 
-  - Id: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
-    Position: {x: -4, y: 273}
-    Text: I am imprisoned here, so not very good
-    NextTopicIds:
-    - 501ecf66-bbb8-4b95-9acd-01067a06edf2
-    - d53c6265-b799-4fd4-8715-5b64709dda2e
-    Action: 
   - Id: bcebe98f-d0c9-4016-9f88-c236c6e5ba48
     Position: {x: -4, y: 66}
     Text: Better now, when you agreed to help
     NextTopicIds:
     - 0e541af2-8658-40e4-aaaa-cfeab44abf43
     - 811fbd88-7ecd-4804-abf4-9645478c98e4
+    - 0c90040c-fec7-49cc-95b1-4113f6bfe025
     Action: 
   - Id: 9c8304fc-ddad-40d2-9875-408c216db606
     Position: {x: 450, y: 105}
@@ -39,17 +33,39 @@ MonoBehaviour:
     Action: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
   - Id: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
     Position: {x: 450, y: -23}
-    Text: Well, hope uou will find some
+    Text: Well, hope you will find some
     NextTopicIds: []
     Action: 
   - Id: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
-    Position: {x: 450, y: 364}
+    Position: {x: 450, y: 459}
     Text: Please, bring me an apple.
     NextTopicIds: []
     Action: ea598076-4856-4435-8803-7ea853e1eff3
   - Id: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
-    Position: {x: 450, y: 243}
+    Position: {x: 450, y: 338}
     Text: Fine, fine
+    NextTopicIds: []
+    Action: 
+  - Id: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
+    Position: {x: -4, y: 368}
+    Text: I am imprisoned here, so not very good
+    NextTopicIds:
+    - 501ecf66-bbb8-4b95-9acd-01067a06edf2
+    - d53c6265-b799-4fd4-8715-5b64709dda2e
+    Action: 
+  - Id: 51b4fbed-5a7c-4812-b39c-4586e4291db1
+    Position: {x: -4, y: 213}
+    Text: Very well, because now I have an apple!
+    NextTopicIds: []
+    Action: 
+  - Id: 915edb64-2a28-4294-b512-69be97a1cd42
+    Position: {x: 683, y: -235}
+    Text: Ooooh. thank you so much!
+    NextTopicIds: []
+    Action: f985c168-2973-49d3-96c2-b45e7e151fbe
+  - Id: c827f9d2-694a-433f-b36d-ebf9987345d2
+    Position: {x: 683, y: -114}
+    Text: Sorry, I don't see any
     NextTopicIds: []
     Action: 
   Questions:
@@ -61,14 +77,6 @@ MonoBehaviour:
     Position: {x: -452, y: -37}
     Text: Hello
     AnswerId: 09a1fab1-a9fd-4b00-84e4-d4be4c2f4c35
-  - Id: 501ecf66-bbb8-4b95-9acd-01067a06edf2
-    Position: {x: 236, y: 243}
-    Text: Well, good luck then
-    AnswerId: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
-  - Id: d53c6265-b799-4fd4-8715-5b64709dda2e
-    Position: {x: 236, y: 340}
-    Text: Maybe, I can help you?
-    AnswerId: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
   - Id: 0e541af2-8658-40e4-aaaa-cfeab44abf43
     Position: {x: 236, y: 1}
     Text: I have not found an apple yet
@@ -77,19 +85,46 @@ MonoBehaviour:
     Position: {x: 236, y: 105}
     Text: I couldn't find you an apple, sorry
     AnswerId: 9c8304fc-ddad-40d2-9875-408c216db606
+  - Id: 501ecf66-bbb8-4b95-9acd-01067a06edf2
+    Position: {x: 236, y: 338}
+    Text: Well, good luck then
+    AnswerId: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
+  - Id: d53c6265-b799-4fd4-8715-5b64709dda2e
+    Position: {x: 236, y: 435}
+    Text: Maybe, I can help you?
+    AnswerId: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
+  - Id: 0c90040c-fec7-49cc-95b1-4113f6bfe025
+    Position: {x: 236, y: -175}
+    Text: I have brought you an apple
+    AnswerId: e7fdcec9-a49a-4fd1-b36e-d4233b7c6b71
   Conditions:
   - Id: 5daf81ab-9355-40a8-a670-cab24b0de4a4
     Position: {x: -238, y: 202}
     Cases:
     - Condition: quest_apple == 50
       NextId: bcebe98f-d0c9-4016-9f88-c236c6e5ba48
+    - Condition: quest_apple == 100
+      NextId: 51b4fbed-5a7c-4812-b39c-4586e4291db1
     Default:
       Condition: 
       NextId: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
+  - Id: e7fdcec9-a49a-4fd1-b36e-d4233b7c6b71
+    Position: {x: 450, y: -175}
+    Cases:
+    - Condition: PlayerHas("apple",1)
+      NextId: 915edb64-2a28-4294-b512-69be97a1cd42
+    Default:
+      Condition: 
+      NextId: c827f9d2-694a-433f-b36d-ebf9987345d2
   DialogActions:
   - Id: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
     Position: {x: 664, y: 129}
-    Script: quest_apple  = 0
+    Script: set quest_apple  = 0
   - Id: ea598076-4856-4435-8803-7ea853e1eff3
-    Position: {x: 664, y: 388}
-    Script: quest_apple  = 50
+    Position: {x: 664, y: 483}
+    Script: set quest_apple  = 50
+  - Id: f985c168-2973-49d3-96c2-b45e7e151fbe
+    Position: {x: 897, y: -211}
+    Script: 'TakeFromPlayer("apple", 1);
+
+      set quest_apple = 100;'

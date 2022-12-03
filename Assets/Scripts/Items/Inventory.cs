@@ -58,4 +58,11 @@ public class Inventory : MonoBehaviour
         }
         return toBeRemoved;
     }
+
+    public int HowMany(Item item)
+    {
+        var idx = Items.FindIndex((it) => it.Item.Id == item.Id);
+        
+        return idx == -1 ? 0 : Items[idx].Quantity;
+    }
 }

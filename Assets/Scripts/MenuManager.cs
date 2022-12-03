@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     public PlayerController Player;
-    public GlobalCtx GlobalCtx = new GlobalCtx();
+    public GlobalCtx GlobalCtx;
 
     public GameObject InventoryMenuPrefab;
     public GameObject DialogMenuPrefab;
@@ -17,6 +17,11 @@ public class MenuManager : MonoBehaviour
     {
         Closed,
         Open,
+    }
+
+    void Start()
+    {
+        GlobalCtx = new GlobalCtx(GetComponent<Inventory>());
     }
 
     void Update()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 public class Evaluator
@@ -7,6 +8,24 @@ public class Evaluator
     private int _idx;
     private GlobalCtx _globalCtx;
 
+    private static Dictionary<string, Func<GlobalCtx, List<string>, string>> Functions =
+        new Dictionary<string, Func<GlobalCtx, List<string>, string>>
+        {
+            ["PlayerHas"] = (ctx, args) =>
+            {
+                var id = args[0];
+                var quantity = int.Parse(args[1]);
+                return ctx.PlayerInventory.HowMany(ctx.AllItems[id]) >= quantity
+                    ? "true" : "false";
+            },
+            ["TakeFromPlayer"] = (ctx, args) =>
+            {
+                var id = args[0];
+                var quantity = int.Parse(args[1]);
+                return ctx.PlayerInventory.RemoveItems(ctx.AllItems[id], quantity).ToString();
+            }
+        };
+
     public Evaluator(string expr, GlobalCtx globalCtx)
     {
         _expr = expr;
@@ -14,23 +33,48 @@ public class Evaluator
     }
 
     public string Evaluate()
-        => _expr == "" ? "" : ParseAssign();
+    {
+        if (_expr == "") return "";
+
+        return ParseStmt();
+    }
 
     public string EvaluateExpression()
         => ParseExpr();
 
-    private string ParseAssign()
+    private string ParseStmt()
     {
-        var left = ParseId();
+        while (true)
+        {
+            ConsumeSpace();
+            if (Peek("set "))
+            {
+                Consume("set");
+                ConsumeSpace();
 
-        ConsumeSpace();
-        Consume('=');
+                var left = ParseId();
+                ConsumeSpace();
+                Consume('=');
 
-        var right = ParseExpr();
+                var right = ParseExpr();
+                _globalCtx.Set(left, right);
+            }
+            else
+            {
+                ParseExpr();
+            }
+            ConsumeSpace();
 
-        _globalCtx.Set(left, right);
+            if (Peek() == -1)
+                return "";
 
-        return "";
+            Consume(';');
+            ConsumeSpace();
+
+            if (Peek() == -1)
+                return "";
+        }
+
     }
 
     private string ParseExpr()
@@ -39,6 +83,7 @@ public class Evaluator
     private string ParseComparison()
     {
         var left = ParsePrimary();
+
         ConsumeSpace();
         if (!Peek("=="))
         {
@@ -47,7 +92,26 @@ public class Evaluator
         Consume("==");
         var right = ParseComparison();
 
-        return left == right ? "true" : "false"; 
+        return left == right ? "true" : "false";
+    }
+
+    private string ParseFunction(string left)
+    {
+        Consume('(');
+        ConsumeSpace();
+        var args = new List<string>();
+        while (true)
+        {
+            args.Add(ParseExpr());
+            ConsumeSpace();
+
+            if (Peek(')')) break;
+
+            Consume(',');
+            ConsumeSpace();
+        }
+        Consume(')');
+        return Functions[left](_globalCtx, args);
     }
 
     private string ParsePrimary()
@@ -56,7 +120,24 @@ public class Evaluator
         if (Peek(Digit))
             return ParseNumber();
         if (Peek(Alpha))
-            return _globalCtx.Get(ParseId());
+        {
+            var id = ParseId();
+
+            ConsumeSpace();
+            return Peek('(')
+                ? ParseFunction(id)
+                : _globalCtx.Get(id);
+        }
+        if (Peek('"'))
+        {
+            var res = new StringBuilder();
+            Consume('"');
+            while (!Peek('"'))
+                res.Append(ConsumeChar());
+            Consume('"');
+
+            return res.ToString();
+        }
         if (Peek('('))
         {
             Consume('(');
@@ -111,7 +192,7 @@ public class Evaluator
 
     private void ConsumeSpace()
     {
-        while (Peek(' '))
+        while (Peek(it => char.IsWhiteSpace(it)))
             ConsumeChar();
     }
 
