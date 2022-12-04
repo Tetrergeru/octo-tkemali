@@ -21,34 +21,11 @@ MonoBehaviour:
   - Id: bcebe98f-d0c9-4016-9f88-c236c6e5ba48
     Position: {x: -4, y: 66}
     Text: Better now, when you agreed to help
-    NextTopicIds:
-    - 0e541af2-8658-40e4-aaaa-cfeab44abf43
-    - 811fbd88-7ecd-4804-abf4-9645478c98e4
-    - 0c90040c-fec7-49cc-95b1-4113f6bfe025
-    Action: 
-  - Id: 9c8304fc-ddad-40d2-9875-408c216db606
-    Position: {x: 450, y: 105}
-    Text: Ok, you do you
-    NextTopicIds: []
-    Action: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
-  - Id: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
-    Position: {x: 450, y: -23}
-    Text: Well, hope you will find some
-    NextTopicIds: []
-    Action: 
-  - Id: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
-    Position: {x: 450, y: 459}
-    Text: Please, bring me an apple.
-    NextTopicIds: []
-    Action: ea598076-4856-4435-8803-7ea853e1eff3
-  - Id: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
-    Position: {x: 450, y: 338}
-    Text: Fine, fine
     NextTopicIds: []
     Action: 
   - Id: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
     Position: {x: -4, y: 368}
-    Text: I am imprisoned here, so not very good
+    Text: I am imprisoned here, so not very well
     NextTopicIds:
     - 501ecf66-bbb8-4b95-9acd-01067a06edf2
     - d53c6265-b799-4fd4-8715-5b64709dda2e
@@ -58,16 +35,57 @@ MonoBehaviour:
     Text: Very well, because now I have an apple!
     NextTopicIds: []
     Action: 
-  - Id: 915edb64-2a28-4294-b512-69be97a1cd42
-    Position: {x: 683, y: -235}
-    Text: Ooooh. thank you so much!
+  - Id: 9c8304fc-ddad-40d2-9875-408c216db606
+    Position: {x: 236, y: 854}
+    Text: Ok, you do you
     NextTopicIds: []
-    Action: f985c168-2973-49d3-96c2-b45e7e151fbe
-  - Id: c827f9d2-694a-433f-b36d-ebf9987345d2
-    Position: {x: 683, y: -114}
-    Text: Sorry, I don't see any
+    Action: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
+  - Id: 35f7faac-f9ef-47cd-bcaf-8d76b786f5e0
+    Position: {x: -218, y: 726}
+    Text: You agreed to bring me an apple
+    NextTopicIds:
+    - 0c90040c-fec7-49cc-95b1-4113f6bfe025
+    - 0e541af2-8658-40e4-aaaa-cfeab44abf43
+    - 811fbd88-7ecd-4804-abf4-9645478c98e4
+    Action: 
+  - Id: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
+    Position: {x: 450, y: 314}
+    Text: Fine, fine
     NextTopicIds: []
     Action: 
+  - Id: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
+    Position: {x: 450, y: 435}
+    Text: Please, bring me an apple.
+    NextTopicIds:
+    - e2555dc1-6f8a-4eab-9415-565a4366604b
+    - a4181bf6-5c75-40ae-93ab-3f7502cc1e4c
+    - 09088e86-b200-4248-8535-b6d38ff098a0
+    Action: 
+  - Id: 516b04e8-072f-45b6-85ae-47506c8c16f8
+    Position: {x: 901, y: 254}
+    Text: Oh, thank you so much!
+    NextTopicIds: []
+    Action: 5766852b-56c2-4d66-8771-cc5d6715e34c
+  - Id: 3c220dc8-bfe7-4f85-8e15-8e34b1b46d70
+    Position: {x: 901, y: 375}
+    Text: Thank you
+    NextTopicIds: []
+    Action: ea598076-4856-4435-8803-7ea853e1eff3
+  - Id: a7bcf07d-06d3-43bc-844c-7c6a051ff4f7
+    Position: {x: 901, y: 496}
+    Text: Well, you do you
+    NextTopicIds: []
+    Action: 
+  - Id: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
+    Position: {x: 236, y: 726}
+    Text: Well, hope you will find some
+    NextTopicIds: []
+    Action: 
+  - Id: 915edb64-2a28-4294-b512-69be97a1cd42
+    Position: {x: 236, y: 605}
+    Text: Ooooh. Thank you so much!
+    NextTopicIds: []
+    Action: f985c168-2973-49d3-96c2-b45e7e151fbe
   Questions:
   - Id: b829977d-10a1-4cfa-8d05-7b027729ca24
     Position: {x: -452, y: 202}
@@ -77,26 +95,42 @@ MonoBehaviour:
     Position: {x: -452, y: -37}
     Text: Hello
     AnswerId: 09a1fab1-a9fd-4b00-84e4-d4be4c2f4c35
-  - Id: 0e541af2-8658-40e4-aaaa-cfeab44abf43
-    Position: {x: 236, y: 1}
-    Text: I have not found an apple yet
-    AnswerId: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
-  - Id: 811fbd88-7ecd-4804-abf4-9645478c98e4
-    Position: {x: 236, y: 105}
-    Text: I couldn't find you an apple, sorry
-    AnswerId: 9c8304fc-ddad-40d2-9875-408c216db606
-  - Id: 501ecf66-bbb8-4b95-9acd-01067a06edf2
-    Position: {x: 236, y: 338}
-    Text: Well, good luck then
-    AnswerId: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
   - Id: d53c6265-b799-4fd4-8715-5b64709dda2e
     Position: {x: 236, y: 435}
     Text: Maybe, I can help you?
     AnswerId: 6a2c7969-1f29-4c93-b511-96dc45c8d0db
+  - Id: 0e541af2-8658-40e4-aaaa-cfeab44abf43
+    Position: {x: 22, y: 726}
+    Text: I have not found an apple yet
+    AnswerId: be7d9d38-82ed-4c8a-a12c-3b4e5b8708e1
   - Id: 0c90040c-fec7-49cc-95b1-4113f6bfe025
-    Position: {x: 236, y: -175}
+    Position: {x: 22, y: 605}
     Text: I have brought you an apple
-    AnswerId: e7fdcec9-a49a-4fd1-b36e-d4233b7c6b71
+    AnswerId: 915edb64-2a28-4294-b512-69be97a1cd42
+  - Id: 6a9d2403-c51c-4567-a9c7-8d191cb19548
+    Position: {x: -432, y: 726}
+    Text: About the apple
+    AnswerId: 35f7faac-f9ef-47cd-bcaf-8d76b786f5e0
+  - Id: 811fbd88-7ecd-4804-abf4-9645478c98e4
+    Position: {x: 22, y: 854}
+    Text: I couldn't find you an apple, sorry. Ask anyone else
+    AnswerId: 9c8304fc-ddad-40d2-9875-408c216db606
+  - Id: 501ecf66-bbb8-4b95-9acd-01067a06edf2
+    Position: {x: 236, y: 314}
+    Text: Well, good luck then
+    AnswerId: 01dffe00-f128-4bb7-a3e1-4e80038e7bd9
+  - Id: e2555dc1-6f8a-4eab-9415-565a4366604b
+    Position: {x: 687, y: 375}
+    Text: Ok
+    AnswerId: 3c220dc8-bfe7-4f85-8e15-8e34b1b46d70
+  - Id: a4181bf6-5c75-40ae-93ab-3f7502cc1e4c
+    Position: {x: 687, y: 496}
+    Text: No, I am busy right now
+    AnswerId: a7bcf07d-06d3-43bc-844c-7c6a051ff4f7
+  - Id: 09088e86-b200-4248-8535-b6d38ff098a0
+    Position: {x: 687, y: 254}
+    Text: I already have an aple for you
+    AnswerId: 516b04e8-072f-45b6-85ae-47506c8c16f8
   Conditions:
   - Id: 5daf81ab-9355-40a8-a670-cab24b0de4a4
     Position: {x: -238, y: 202}
@@ -108,23 +142,33 @@ MonoBehaviour:
     Default:
       Condition: 
       NextId: 0d3e559c-5f19-44e2-9532-afb0bb84cba5
-  - Id: e7fdcec9-a49a-4fd1-b36e-d4233b7c6b71
-    Position: {x: 450, y: -175}
-    Cases:
-    - Condition: PlayerHas("apple",1)
-      NextId: 915edb64-2a28-4294-b512-69be97a1cd42
-    Default:
-      Condition: 
-      NextId: c827f9d2-694a-433f-b36d-ebf9987345d2
   DialogActions:
   - Id: c24bb3b4-c1f8-43b1-8296-e62a4c4c509c
-    Position: {x: 664, y: 129}
+    Position: {x: 450, y: 878}
     Script: set quest_apple  = 0
   - Id: ea598076-4856-4435-8803-7ea853e1eff3
-    Position: {x: 664, y: 483}
+    Position: {x: 1115, y: 399}
     Script: set quest_apple  = 50
-  - Id: f985c168-2973-49d3-96c2-b45e7e151fbe
-    Position: {x: 897, y: -211}
+  - Id: 5766852b-56c2-4d66-8771-cc5d6715e34c
+    Position: {x: 1115, y: 278}
     Script: 'TakeFromPlayer("apple", 1);
 
       set quest_apple = 100;'
+  - Id: f985c168-2973-49d3-96c2-b45e7e151fbe
+    Position: {x: 450, y: 629}
+    Script: 'TakeFromPlayer("apple", 1);
+
+      set quest_apple = 100;'
+  QuestionConditions:
+  - Id: 6f09a6d9-0ac3-469b-82b5-fca09ed9ae28
+    Position: {x: -646, y: 750}
+    Condition: quest_apple == 50
+    QuestionId: 6a9d2403-c51c-4567-a9c7-8d191cb19548
+  - Id: 14747d74-6645-4a04-8244-7279edbbfd17
+    Position: {x: 450, y: 202}
+    Condition: PlayerHas("apple",1)
+    QuestionId: 09088e86-b200-4248-8535-b6d38ff098a0
+  - Id: b21de5a0-5015-4950-8771-e72a4ff712e4
+    Position: {x: -218, y: 629}
+    Condition: PlayerHas("apple",1)
+    QuestionId: 0c90040c-fec7-49cc-95b1-4113f6bfe025

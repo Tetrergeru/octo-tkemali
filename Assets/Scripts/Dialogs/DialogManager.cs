@@ -1,15 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 public class DialogManager
 {
+    public Action OnStartTopicsUpdate = () => { };
+
     private Dialog _dialog;
     private GlobalCtx _globalCtx;
-
     private Answer _state;
     private Dictionary<string, Topic> _topics;
     private List<Question> _startTopics = new List<Question>();
-
 
     public bool InConversation => _state != null;
 
@@ -45,6 +46,11 @@ public class DialogManager
                 case DialogAction a:
                     nonStartTopics.Add(topic.Id);
                     break;
+                case QuestionCondition qc:
+                    nonStartTopics.Add(topic.Id);
+                    if (!qc.Evaluate(_globalCtx))
+                        nonStartTopics.Add(qc.QuestionId);
+                    break;
             }
         }
         _startTopics = new List<Question>();
@@ -78,8 +84,18 @@ public class DialogManager
 
         if (_state.NextTopicIds.Count == 0)
             _state = null;
+
         if (state.Action != null)
-            _globalCtx.Evaluate((GetTopic(state.Action) as DialogAction)?.Script ?? "");
+        {
+            var script = (GetTopic(state.Action) as DialogAction)?.Script ?? "";
+            if (script != "")
+            {
+                _globalCtx.Evaluate(script);
+                EvaluateTopics();
+                OnStartTopicsUpdate();
+            }
+        }
+
         return state;
     }
 
@@ -91,7 +107,7 @@ public class DialogManager
         {
             Question q => GetAnswer(GetTopic(q.AnswerId)),
             Answer ea => ea,
-            AnswerSwitch c => GetAnswer(GetTopic(c.EvaluateCase(_globalCtx).NextId)),
+            AnswerSwitch c => GetAnswer(GetTopic(c.Evaluate(_globalCtx).NextId)),
             _ => throw new System.Exception(),
         };
     }

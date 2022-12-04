@@ -32,7 +32,7 @@ public class AnswerSwitch : Topic
     public List<Case> Cases = new List<Case>();
     public Case Default;
 
-    public Case EvaluateCase(GlobalCtx globalCtx)
+    public Case Evaluate(GlobalCtx globalCtx)
     {
         foreach (var @case in Cases)
         {
@@ -59,4 +59,14 @@ public class DialogAction : Topic
     {
         globalCtx.Evaluate(Script);
     }
+}
+
+[Serializable]
+public class QuestionCondition : Topic
+{
+    public string Condition;
+    public string QuestionId;
+
+    public bool Evaluate(GlobalCtx globalCtx)
+        => globalCtx.EvaluateExpression(Condition) == "true";
 }

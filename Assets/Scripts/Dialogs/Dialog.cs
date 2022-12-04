@@ -10,6 +10,7 @@ public class Dialog : ScriptableObject
     public List<Question> Questions = new List<Question>();
     public List<AnswerSwitch> Conditions = new List<AnswerSwitch>();
     public List<DialogAction> DialogActions = new List<DialogAction>();
+    public List<QuestionCondition> QuestionConditions = new List<QuestionCondition>();
 
     public void Clear()
     {
@@ -17,6 +18,7 @@ public class Dialog : ScriptableObject
         Questions = new List<Question>();
         Conditions = new List<AnswerSwitch>();
         DialogActions = new List<DialogAction>();
+        QuestionConditions = new List<QuestionCondition>();
     }
 
     public void Add(Topic topic)
@@ -35,6 +37,9 @@ public class Dialog : ScriptableObject
             case DialogAction v:
                 DialogActions.Add(v);
                 break;
+            case QuestionCondition v:
+                QuestionConditions.Add(v);
+                break;
         }
     }
 
@@ -46,6 +51,7 @@ public class Dialog : ScriptableObject
             foreach (var v in Questions) yield return v;
             foreach (var v in Conditions) yield return v;
             foreach (var v in DialogActions) yield return v;
+            foreach (var v in QuestionConditions) yield return v;
         }
     }
 

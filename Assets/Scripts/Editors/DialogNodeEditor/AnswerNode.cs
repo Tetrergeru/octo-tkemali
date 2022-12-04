@@ -33,7 +33,6 @@ public class AnswerNode : DialogNode
         return list;
     }
 
-
     public string GetAction()
     {
         var nextNode = (DialogNode)Action.connections.FirstOrDefault()?.input.node;

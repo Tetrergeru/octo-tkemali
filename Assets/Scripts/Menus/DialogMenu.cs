@@ -14,9 +14,11 @@ public class DialogMenu : MonoBehaviour
     private float _dialogContentOffset;
     private DialogManager _currentDialog;
     private int _numberOfButtons;
+    private ListComponent _startTopics;
 
     public void LoadDialog(Dialog dialog, string npcName, GlobalCtx globalCtx)
     {
+        _startTopics = TopicsContent.GetComponent<ListComponent>();
         _currentDialog = new DialogManager(dialog, globalCtx);
 
         var npcNameText = CharacterName.GetComponent<TextMeshProUGUI>();
@@ -24,7 +26,13 @@ public class DialogMenu : MonoBehaviour
         npcNameText.outlineColor = Color.black;
         npcNameText.outlineWidth = 0.2f;
 
-        var prevTopics = new Dictionary<string, string>();
+        RerenderStartTopics();
+        _currentDialog.OnStartTopicsUpdate = () => RerenderStartTopics();
+    }
+
+    private void RerenderStartTopics()
+    {
+        _startTopics.DestroyAll();
         foreach (var question in _currentDialog.StartTopics())
         {
             RenderQuestionButton(question);
@@ -59,7 +67,7 @@ public class DialogMenu : MonoBehaviour
         text.color = Color.black;
         text.verticalAlignment = VerticalAlignmentOptions.Middle;
 
-        TopicsContent.GetComponent<ListComponent>().AddElement(panel);
+        _startTopics.AddElement(panel);
     }
 
     private void AskQuestion(Question question)

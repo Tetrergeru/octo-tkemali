@@ -47,8 +47,10 @@ public class DialogGraphView : GraphView
                         var node = new QuestionNode(this, topic.Position, topic.Id);
                         node.Text = q.Text;
                         inputs[topic.Id] = node.Input;
+                        inputs[$"{topic.Id}_condition"] = node.Condition;
                         if (q.AnswerId != null && q.AnswerId != "")
                             edgeRequests.Add((node.Output, q.AnswerId));
+                        
                         AddElement(node);
                         break;
                     }
@@ -71,6 +73,14 @@ public class DialogGraphView : GraphView
                         var node = new ActionNode(this, topic.Position, topic.Id);
                         node.Text = a.Script;
                         inputs[topic.Id] = node.Input;
+                        AddElement(node);
+                        break;
+                    }
+                case QuestionCondition qc:
+                    {
+                        var node = new QuestionConditionNode(this, topic.Position, topic.Id);
+                        node.Text = qc.Condition;
+                        edgeRequests.Add((node.Output, $"{qc.QuestionId}_condition"));
                         AddElement(node);
                         break;
                     }
@@ -105,10 +115,16 @@ public class DialogGraphView : GraphView
         this.AddElement(new ActionNode(this, NodeSpawnpoint()));
     }
 
-    public void AddConditionNode()
+    public void AddAnswerSwitchNode()
     {
         this.AddElement(new AnswerSwitchNode(this, NodeSpawnpoint()));
     }
+
+    public void AddQuestionConditionNode()
+    {
+        this.AddElement(new QuestionConditionNode(this, NodeSpawnpoint()));
+    }
+
 
     private Vector2 NodeSpawnpoint()
         => -(Vector2)this.viewTransform.position + new Vector2(30, 30);
@@ -140,6 +156,7 @@ public class DialogGraphView : GraphView
                 || IsFromTo<AnswerSwitchNode, AnswerNode>(startPort, otherPort)
                 || IsFromTo<AnswerNode, QuestionNode>(startPort, otherPort)
                 || IsFromTo<AnswerNode, ActionNode>(startPort, otherPort)
+                || IsFromTo<QuestionConditionNode, QuestionNode>(startPort, otherPort)
             )
             ;
     }

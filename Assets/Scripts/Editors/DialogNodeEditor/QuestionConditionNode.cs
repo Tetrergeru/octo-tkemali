@@ -1,17 +1,16 @@
-
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class QuestionNode : DialogNode
+public class QuestionConditionNode : DialogNode
 {
-    private TextField _textField;
     public Port Output;
-    public Port Input;
-    public Port Condition;
+
+    private TextField _textField;
 
     public string Text
     {
@@ -22,7 +21,7 @@ public class QuestionNode : DialogNode
         }
     }
 
-    public string GetOutput()
+    public string GetQuestion()
     {
         var nextNode = (DialogNode)Output.connections.FirstOrDefault()?.input.node;
         return nextNode?.Id;
@@ -30,36 +29,29 @@ public class QuestionNode : DialogNode
 
     public override Topic Save()
     {
-        var topic = new Question();
-        topic.Id = this.Id;
-        topic.Text = this.Text;
-        topic.Position = this.GetPosition().position;
+        var topic = new QuestionCondition();
 
-        topic.AnswerId = GetOutput();
+        topic.Id = this.Id;
+        topic.Condition = this.Text;
+        topic.QuestionId = GetQuestion();
+        topic.Position = this.GetPosition().position;
 
         return topic;
     }
 
-    public QuestionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
+    public QuestionConditionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 
-    public QuestionNode(DialogGraphView parent, Vector2 position, string id) : base(parent, position, id)
+    public QuestionConditionNode(DialogGraphView parent, Vector2 position, string id) : base(parent, position, id)
     {
-        var color = new Color(0.4f, 0.4f, 0.7f);
-        this.title = "Question";
+        var color = new Color(0.5f, 0.7f, 0.5f);
+        this.title = "IF";
+        this.titleContainer.style.color = new StyleColor(Color.black);
         this.titleContainer.style.backgroundColor = new StyleColor(color);
 
-        Input = this.MakePort(Direction.Input);
-        Input.portName = "";
-        this.inputContainer.Add(Input);
-
-        Condition = this.MakePort<string>(Direction.Input);
-        Condition.portName = "";
-        this.inputContainer.Add(Condition);
-
-        Output = this.MakePort(Direction.Output);
-        Output.portName = "";
+        Output = this.MakePort<string>(Direction.Output);
+        Output.portName = "Input";
         this.outputContainer.Add(Output);
 
         _textField = new TextField
