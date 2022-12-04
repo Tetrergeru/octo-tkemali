@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class InventoryMenu : MonoBehaviour
 {
-    public GameObject Content;
+    public ItemListComponent ItemList;
+
     public GameObject PlayerNameButton;
     public GameObject ContainerNameButton;
     public GameObject ItemRenderer;
@@ -26,8 +27,8 @@ public class InventoryMenu : MonoBehaviour
 
     public void LoadInventory(Inventory chestInventory, Inventory playerInventory, string containerName)
     {
-        _panels = Content.GetComponent<ListComponent>();
         _itemRenderer = ItemRenderer.GetComponent<ItemRenderer>();
+        ItemList.OnHover = item => _itemRenderer.SetGameObject(item.Item.Prefab);
 
         _chestInventory = chestInventory;
         _playerInventory = playerInventory;
@@ -74,45 +75,13 @@ public class InventoryMenu : MonoBehaviour
             ? (_chestInventory, _playerInventory)
             : (_playerInventory, _chestInventory);
 
-        _panels.DestroyAll();
-
-        var numberOfItems = from.Items.Count;
-
-        var rect = Content.GetComponent<RectTransform>();
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, numberOfItems * 50);
-
-        for (var i = 0; i < numberOfItems; i++)
-        {
-            _panels.AddElement(AddItem(i, from, to));
-        }
-    }
-
-    private GameObject AddItem(int idx, Inventory from, Inventory to)
-    {
-        var item = from.Items[idx];
-
-        var panelObject = new GameObject("Panel", typeof(RectTransform), typeof(CanvasRenderer));
-
-        var transform = panelObject.GetComponent<RectTransform>();
-        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 30);
-
-        var colorChanger = panelObject.AddComponent<OnHoverChangeColor>();
-        colorChanger.DefaultColor = new Color(1, 1, 1, 0.1f);
-        colorChanger.HoveredtColor = new Color(1, 1, 1, 0.5f);
-        colorChanger.OnHoverStart = () => _itemRenderer.SetGameObject(item.Item.Prefab);
-
-        var button = panelObject.AddComponent<Button>();
-        button.onClick.AddListener(() =>
+        ItemList.SetItems(from.Items);
+        ItemList.OnClick = item =>
         {
             from.RemoveItems(item.Item, item.Quantity);
             to.AddItems(item.Item, item.Quantity);
             RerenderItems();
-        });
-
-        AddText(new Vector3(-100, 0, 0), item.Item.Name, panelObject);
-        AddText(new Vector3(240, 0, 0), $"{item.Quantity}", panelObject);
-
-        return panelObject;
+        };
     }
 
     public static void AddText(Vector3 position, string content, GameObject parent)
