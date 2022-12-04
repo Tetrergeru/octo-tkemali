@@ -37,7 +37,7 @@ public class ConditionNode : DialogNode
         return topic;
     }
 
-    public ConditionNode(DialogGraphView parent) : this(parent, new Vector2(), Guid.NewGuid().ToString())
+    public ConditionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 

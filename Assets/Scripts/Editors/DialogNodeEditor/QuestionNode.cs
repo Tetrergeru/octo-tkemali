@@ -39,7 +39,7 @@ public class QuestionNode : DialogNode
         return topic;
     }
 
-    public QuestionNode(DialogGraphView parent) : this(parent, new Vector2(), Guid.NewGuid().ToString())
+    public QuestionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 

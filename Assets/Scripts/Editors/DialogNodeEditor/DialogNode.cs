@@ -13,7 +13,7 @@ public abstract class DialogNode : Node
 
     public abstract ITopic Save();
 
-    public DialogNode(DialogGraphView parent) : this(parent, new Vector2(), Guid.NewGuid().ToString()) { }
+    public DialogNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString()) { }
 
     public DialogNode(DialogGraphView parent, Vector2 position, string id)
     {

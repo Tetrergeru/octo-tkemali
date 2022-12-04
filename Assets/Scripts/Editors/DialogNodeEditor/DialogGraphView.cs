@@ -92,28 +92,29 @@ public class DialogGraphView : GraphView
 
     public void AddAnswerNode()
     {
-        this.AddElement(new AnswerNode(this));
+        this.AddElement(new AnswerNode(this, NodeSpawnpoint()));
     }
 
     public void AddQuestionNode()
     {
-        this.AddElement(new QuestionNode(this));
+        this.AddElement(new QuestionNode(this, NodeSpawnpoint()));
     }
 
     public void AddActionNode()
     {
-        this.AddElement(new ActionNode(this));
+        this.AddElement(new ActionNode(this, NodeSpawnpoint()));
     }
 
     public void AddConditionNode()
     {
-        this.AddElement(new ConditionNode(this));
+        this.AddElement(new ConditionNode(this, NodeSpawnpoint()));
     }
 
+    private Vector2 NodeSpawnpoint()
+        => -(Vector2)this.viewTransform.position + new Vector2(30, 30);
+
     private AnswerNode AddNodeWithParams(Vector2 position, string id)
-    {
-        return new AnswerNode(this, position, id);
-    }
+        => new AnswerNode(this, position, id);
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
     {

@@ -32,7 +32,7 @@ public class ActionNode : DialogNode
         return topic;
     }
 
-    public ActionNode(DialogGraphView parent) : this(parent, new Vector2(), Guid.NewGuid().ToString())
+    public ActionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 

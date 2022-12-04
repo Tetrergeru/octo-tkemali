@@ -14,20 +14,6 @@ public class PlayerController : MonoBehaviour
 
     private bool _contolsActive = true;
 
-    public void DisableControls()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        _contolsActive = false;
-    }
-
-    public void EnableControls()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        _contolsActive = true;
-    }
-
-    private JumpController _jumpController;
-
     void Start()
     {
         _jumpController = GetComponentInChildren<JumpController>();
@@ -43,6 +29,20 @@ public class PlayerController : MonoBehaviour
             UpdateActivation();
         }
     }
+
+    public void DisableControls()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        _contolsActive = false;
+    }
+
+    public void EnableControls()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        _contolsActive = true;
+    }
+
+    private JumpController _jumpController;
 
     void UpdateRotation()
     {

@@ -54,7 +54,7 @@ public class AnswerNode : DialogNode
         return topic;
     }
 
-    public AnswerNode(DialogGraphView parent) : this(parent, new Vector2(), Guid.NewGuid().ToString())
+    public AnswerNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 
