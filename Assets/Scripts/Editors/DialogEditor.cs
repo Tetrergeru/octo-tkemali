@@ -13,13 +13,13 @@ public class DialogEditor : Editor
             var editor = EditorWindow.GetWindow<DialogGraph>();
             editor.Load((Dialog)target);
         }
-        if (GUILayout.Button("Clear"))
-        {
-            var dialog = (Dialog)target;
-            dialog.Clear();
-            dialog.Persist();
-        }
         DrawDefaultInspector();
+        // if (GUILayout.Button("Clear"))
+        // {
+        //     var dialog = (Dialog)target;
+        //     dialog.Clear();
+        //     dialog.Persist();
+        // }
     }
 }
 

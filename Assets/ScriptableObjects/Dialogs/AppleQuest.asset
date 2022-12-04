@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420e456878c247dc599140bd6a7d6a1c, type: 3}
   m_Name: AppleQuest
   m_EditorClassIdentifier: 
-  ExactAnswers:
+  Answers:
   - Id: 09a1fab1-a9fd-4b00-84e4-d4be4c2f4c35
     Position: {x: -238, y: -37}
     Text: Greetings
@@ -131,7 +131,7 @@ MonoBehaviour:
     Position: {x: 687, y: 254}
     Text: I already have an aple for you
     AnswerId: 516b04e8-072f-45b6-85ae-47506c8c16f8
-  Conditions:
+  AnswerSwitches:
   - Id: 5daf81ab-9355-40a8-a670-cab24b0de4a4
     Position: {x: -238, y: 202}
     Cases:

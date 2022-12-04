@@ -53,8 +53,11 @@ public class DialogManager
                     break;
             }
         }
-        _startTopics = new List<Question>();
-        _startTopics.AddRange(_topics.Where(it => !nonStartTopics.Contains(it.Key)).Select(it => it.Value as Question));
+        _startTopics = _topics
+            .Where(it => !nonStartTopics.Contains(it.Key))
+            .Select(it => it.Value as Question)
+            .OrderBy(it => it.Text)
+            .ToList();
     }
 
     public IEnumerable<Question> StartTopics()
