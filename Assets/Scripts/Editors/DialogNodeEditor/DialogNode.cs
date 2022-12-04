@@ -11,7 +11,7 @@ public abstract class DialogNode : Node
     public string Id;
     protected DialogGraphView _parent;
 
-    public abstract ITopic Save();
+    public abstract Topic Save();
 
     public DialogNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString()) { }
 

@@ -27,7 +27,7 @@ public class QuestionNode : DialogNode
         return nextNode?.Id;
     }
 
-    public override ITopic Save()
+    public override Topic Save()
     {
         var topic = new Question();
         topic.Id = this.Id;

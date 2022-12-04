@@ -21,7 +21,7 @@ public class ActionNode : DialogNode
         }
     }
 
-    public override ITopic Save()
+    public override Topic Save()
     {
         var topic = new DialogAction();
 

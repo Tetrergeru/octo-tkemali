@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ConditionNode : DialogNode
+public class AnswerSwitchNode : DialogNode
 {
     public Port Input;
     public Port Other;
@@ -24,24 +24,24 @@ public class ConditionNode : DialogNode
         return list;
     }
 
-    public override ITopic Save()
+    public override Topic Save()
     {
-        var topic = new Condition();
+        var topic = new AnswerSwitch();
         topic.Id = this.Id;
         topic.Position = this.GetPosition().position;
         topic.Cases = GetOutputs()
-            .Select(it => new Condition.Case { Condition = it.text, NextId = it.id })
+            .Select(it => new AnswerSwitch.Case { Condition = it.text, NextId = it.id })
             .ToList();
-        topic.Default = new Condition.Case { NextId = (Other.connections.FirstOrDefault()?.input.node as DialogNode).Id, };
+        topic.Default = new AnswerSwitch.Case { NextId = (Other.connections.FirstOrDefault()?.input.node as DialogNode).Id, };
 
         return topic;
     }
 
-    public ConditionNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
+    public AnswerSwitchNode(DialogGraphView parent, Vector2 position = new Vector2()) : this(parent, position, Guid.NewGuid().ToString())
     {
     }
 
-    public ConditionNode(DialogGraphView parent, Vector2 position, string id) : base(parent, position, id)
+    public AnswerSwitchNode(DialogGraphView parent, Vector2 position, string id) : base(parent, position, id)
     {
         var color = new Color(0.2f, 0.5f, 0.2f);
         this.title = "CASE";

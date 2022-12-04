@@ -6,30 +6,30 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Dialog", menuName = "ScriptableObjects/Dialog", order = 1)]
 public class Dialog : ScriptableObject
 {
-    public List<ExactAnswer> ExactAnswers = new List<ExactAnswer>();
+    public List<Answer> ExactAnswers = new List<Answer>();
     public List<Question> Questions = new List<Question>();
-    public List<Condition> Conditions = new List<Condition>();
+    public List<AnswerSwitch> Conditions = new List<AnswerSwitch>();
     public List<DialogAction> DialogActions = new List<DialogAction>();
 
     public void Clear()
     {
-        ExactAnswers = new List<ExactAnswer>();
+        ExactAnswers = new List<Answer>();
         Questions = new List<Question>();
-        Conditions = new List<Condition>();
+        Conditions = new List<AnswerSwitch>();
         DialogActions = new List<DialogAction>();
     }
 
-    public void Add(ITopic topic)
+    public void Add(Topic topic)
     {
         switch (topic)
         {
-            case ExactAnswer v:
+            case Answer v:
                 ExactAnswers.Add(v);
                 break;
             case Question v:
                 Questions.Add(v);
                 break;
-            case Condition v:
+            case AnswerSwitch v:
                 Conditions.Add(v);
                 break;
             case DialogAction v:
@@ -38,7 +38,7 @@ public class Dialog : ScriptableObject
         }
     }
 
-    public IEnumerable<ITopic> Topics
+    public IEnumerable<Topic> Topics
     {
         get
         {

@@ -6,8 +6,8 @@ public class DialogManager
     private Dialog _dialog;
     private GlobalCtx _globalCtx;
 
-    private ExactAnswer _state;
-    private Dictionary<string, ITopic> _topics;
+    private Answer _state;
+    private Dictionary<string, Topic> _topics;
     private List<Question> _startTopics = new List<Question>();
 
 
@@ -28,14 +28,14 @@ public class DialogManager
         {
             switch (topic)
             {
-                case ExactAnswer ea:
+                case Answer ea:
                     nonStartTopics.Add(topic.Id);
                     foreach (var next in ea.NextTopicIds)
                     {
                         nonStartTopics.Add(next);
                     }
                     break;
-                case Condition c:
+                case AnswerSwitch c:
                     nonStartTopics.Add(topic.Id);
                     foreach (var next in c.Cases)
                     {
@@ -69,7 +69,7 @@ public class DialogManager
         }
     }
 
-    public ExactAnswer PlayerSays(Question question)
+    public Answer PlayerSays(Question question)
     {
         var state = GetAnswer(question);
         _state = state;
@@ -83,20 +83,20 @@ public class DialogManager
         return state;
     }
 
-    private ExactAnswer GetAnswer(ITopic question)
+    private Answer GetAnswer(Topic question)
     {
         if (question == null)
             return null;
         return question switch
         {
             Question q => GetAnswer(GetTopic(q.AnswerId)),
-            ExactAnswer ea => ea,
-            Condition c => GetAnswer(GetTopic(c.EvaluateCase(_globalCtx).NextId)),
+            Answer ea => ea,
+            AnswerSwitch c => GetAnswer(GetTopic(c.EvaluateCase(_globalCtx).NextId)),
             _ => throw new System.Exception(),
         };
     }
 
-    private ITopic GetTopic(string id)
+    private Topic GetTopic(string id)
     {
         return _topics.ContainsKey(id) ? _topics[id] : null;
     }

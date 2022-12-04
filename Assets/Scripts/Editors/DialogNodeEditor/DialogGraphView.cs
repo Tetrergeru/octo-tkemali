@@ -30,7 +30,7 @@ public class DialogGraphView : GraphView
         {
             switch (topic)
             {
-                case ExactAnswer ea:
+                case Answer ea:
                     {
                         var node = new AnswerNode(this, topic.Position, topic.Id);
                         node.Text = ea.Text;
@@ -52,9 +52,9 @@ public class DialogGraphView : GraphView
                         AddElement(node);
                         break;
                     }
-                case Condition c:
+                case AnswerSwitch c:
                     {
-                        var node = new ConditionNode(this, topic.Position, topic.Id);
+                        var node = new AnswerSwitchNode(this, topic.Position, topic.Id);
                         foreach (var @case in c.Cases)
                         {
                             var port = node.MakeCondition(@case.Condition);
@@ -107,7 +107,7 @@ public class DialogGraphView : GraphView
 
     public void AddConditionNode()
     {
-        this.AddElement(new ConditionNode(this, NodeSpawnpoint()));
+        this.AddElement(new AnswerSwitchNode(this, NodeSpawnpoint()));
     }
 
     private Vector2 NodeSpawnpoint()
@@ -136,8 +136,8 @@ public class DialogGraphView : GraphView
             && startPort.portType == otherPort.portType
             && (
                 IsFromTo<QuestionNode, AnswerNode>(startPort, otherPort)
-                || IsFromTo<QuestionNode, ConditionNode>(startPort, otherPort)
-                || IsFromTo<ConditionNode, AnswerNode>(startPort, otherPort)
+                || IsFromTo<QuestionNode, AnswerSwitchNode>(startPort, otherPort)
+                || IsFromTo<AnswerSwitchNode, AnswerNode>(startPort, otherPort)
                 || IsFromTo<AnswerNode, QuestionNode>(startPort, otherPort)
                 || IsFromTo<AnswerNode, ActionNode>(startPort, otherPort)
             )

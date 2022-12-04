@@ -40,9 +40,9 @@ public class AnswerNode : DialogNode
         return nextNode?.Id;
     }
 
-    public override ITopic Save()
+    public override Topic Save()
     {
-        var topic = new ExactAnswer();
+        var topic = new Answer();
         topic.Id = this.Id;
         topic.Text = this.Text;
         topic.Position = this.GetPosition().position;

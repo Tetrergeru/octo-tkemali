@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public abstract class ITopic
+public abstract class Topic
 {
     [SerializeField]
     public string Id;
@@ -13,14 +12,14 @@ public abstract class ITopic
 }
 
 [Serializable]
-public class Question : ITopic
+public class Question : Topic
 {
     public string Text;
     public string AnswerId;
 }
 
 [Serializable]
-public class ExactAnswer : ITopic
+public class Answer : Topic
 {
     public string Text;
     public List<string> NextTopicIds = new List<string>();
@@ -28,7 +27,7 @@ public class ExactAnswer : ITopic
 }
 
 [Serializable]
-public class Condition : ITopic
+public class AnswerSwitch : Topic
 {
     public List<Case> Cases = new List<Case>();
     public Case Default;
@@ -52,7 +51,7 @@ public class Condition : ITopic
 }
 
 [Serializable]
-public class DialogAction : ITopic
+public class DialogAction : Topic
 {
     public string Script;
 
