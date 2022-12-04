@@ -10,6 +10,7 @@ public class DialogManager
     private GlobalCtx _globalCtx;
     private Answer _state;
     private Dictionary<string, Topic> _topics;
+    private Dictionary<string, QuestionCondition> _questionConditions;
     private List<Question> _startTopics = new List<Question>();
 
     public bool InConversation => _state != null;
@@ -19,6 +20,7 @@ public class DialogManager
         _dialog = dialog;
         _globalCtx = globalCtx;
         _topics = _dialog.Topics.ToDictionary(it => it.Id, it => it);
+        _questionConditions = _dialog.QuestionConditions.ToDictionary(it => it.QuestionId, it => it);
         EvaluateTopics();
     }
 
@@ -74,6 +76,8 @@ public class DialogManager
 
         foreach (var nextTopicId in _state.NextTopicIds)
         {
+            if (_questionConditions.ContainsKey(nextTopicId) && !_questionConditions[nextTopicId].Evaluate(_globalCtx))
+                continue;
             yield return GetTopic(nextTopicId) as Question;
         }
     }
