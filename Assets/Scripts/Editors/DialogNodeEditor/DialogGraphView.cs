@@ -32,9 +32,9 @@ public class DialogGraphView : GraphView
             {
                 case ExactAnswer ea:
                     {
-                        var node = new AnswerNode(this, topic.PropPosition, topic.PropId);
+                        var node = new AnswerNode(this, topic.Position, topic.Id);
                         node.Text = ea.Text;
-                        inputs[topic.PropId] = node.Input;
+                        inputs[topic.Id] = node.Input;
                         foreach (var nextTopicId in ea.NextTopicIds)
                             edgeRequests.Add((node.Output, nextTopicId));
                         if (ea.Action != null && ea.Action != "")
@@ -44,9 +44,9 @@ public class DialogGraphView : GraphView
                     }
                 case Question q:
                     {
-                        var node = new QuestionNode(this, topic.PropPosition, topic.PropId);
+                        var node = new QuestionNode(this, topic.Position, topic.Id);
                         node.Text = q.Text;
-                        inputs[topic.PropId] = node.Input;
+                        inputs[topic.Id] = node.Input;
                         if (q.AnswerId != null && q.AnswerId != "")
                             edgeRequests.Add((node.Output, q.AnswerId));
                         AddElement(node);
@@ -54,23 +54,23 @@ public class DialogGraphView : GraphView
                     }
                 case Condition c:
                     {
-                        var node = new ConditionNode(this, topic.PropPosition, topic.PropId);
+                        var node = new ConditionNode(this, topic.Position, topic.Id);
                         foreach (var @case in c.Cases)
                         {
                             var port = node.MakeCondition(@case.Condition);
-                            inputs[topic.PropId] = port;
+                            inputs[topic.Id] = port;
                             edgeRequests.Add((port, @case.NextId));
                         }
                         edgeRequests.Add((node.Other, c.Default.NextId));
-                        inputs[topic.PropId] = node.Input;
+                        inputs[topic.Id] = node.Input;
                         AddElement(node);
                         break;
                     }
                 case DialogAction a:
                     {
-                        var node = new ActionNode(this, topic.PropPosition, topic.PropId);
+                        var node = new ActionNode(this, topic.Position, topic.Id);
                         node.Text = a.Script;
-                        inputs[topic.PropId] = node.Input;
+                        inputs[topic.Id] = node.Input;
                         AddElement(node);
                         break;
                     }

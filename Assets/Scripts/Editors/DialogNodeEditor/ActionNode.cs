@@ -25,9 +25,9 @@ public class ActionNode : DialogNode
     {
         var topic = new DialogAction();
 
-        topic.PropId = this.Id;
+        topic.Id = this.Id;
         topic.Script = this.Text;
-        topic.PropPosition = this.GetPosition().position;
+        topic.Position = this.GetPosition().position;
 
         return topic;
     }

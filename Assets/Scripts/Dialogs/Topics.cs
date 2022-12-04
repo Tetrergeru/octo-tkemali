@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public interface ITopic
+public abstract class ITopic
 {
-    public string PropId { get; set; }
-    public Vector2 PropPosition { get; set; }
+    [SerializeField]
+    public string Id;
+
+    [SerializeField]
+    public Vector2 Position;
 }
 
 [Serializable]
 public class Question : ITopic
 {
-    public string PropId { get => Id; set => Id = value; }
-    public Vector2 PropPosition { get => Position; set => Position = value; }
-
-    public string Id;
-    public Vector2 Position;
     public string Text;
     public string AnswerId;
 }
@@ -23,11 +22,6 @@ public class Question : ITopic
 [Serializable]
 public class ExactAnswer : ITopic
 {
-    public string PropId { get => Id; set => Id = value; }
-    public Vector2 PropPosition { get => Position; set => Position = value; }
-
-    public string Id;
-    public Vector2 Position;
     public string Text;
     public List<string> NextTopicIds = new List<string>();
     public string Action;
@@ -36,11 +30,6 @@ public class ExactAnswer : ITopic
 [Serializable]
 public class Condition : ITopic
 {
-    public string PropId { get => Id; set => Id = value; }
-    public Vector2 PropPosition { get => Position; set => Position = value; }
-
-    public string Id;
-    public Vector2 Position;
     public List<Case> Cases = new List<Case>();
     public Case Default;
 
@@ -65,11 +54,6 @@ public class Condition : ITopic
 [Serializable]
 public class DialogAction : ITopic
 {
-    public string PropId { get => Id; set => Id = value; }
-    public Vector2 PropPosition { get => Position; set => Position = value; }
-
-    public string Id;
-    public Vector2 Position;
     public string Script;
 
     public void Evaluate(GlobalCtx globalCtx)

@@ -30,9 +30,9 @@ public class QuestionNode : DialogNode
     public override ITopic Save()
     {
         var topic = new Question();
-        topic.PropId = this.Id;
+        topic.Id = this.Id;
         topic.Text = this.Text;
-        topic.PropPosition = this.GetPosition().position;
+        topic.Position = this.GetPosition().position;
 
         topic.AnswerId = GetOutput();
 

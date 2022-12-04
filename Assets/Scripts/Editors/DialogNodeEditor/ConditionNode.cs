@@ -27,8 +27,8 @@ public class ConditionNode : DialogNode
     public override ITopic Save()
     {
         var topic = new Condition();
-        topic.PropId = this.Id;
-        topic.PropPosition = this.GetPosition().position;
+        topic.Id = this.Id;
+        topic.Position = this.GetPosition().position;
         topic.Cases = GetOutputs()
             .Select(it => new Condition.Case { Condition = it.text, NextId = it.id })
             .ToList();

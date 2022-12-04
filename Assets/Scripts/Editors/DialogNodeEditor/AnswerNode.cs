@@ -43,9 +43,9 @@ public class AnswerNode : DialogNode
     public override ITopic Save()
     {
         var topic = new ExactAnswer();
-        topic.PropId = this.Id;
+        topic.Id = this.Id;
         topic.Text = this.Text;
-        topic.PropPosition = this.GetPosition().position;
+        topic.Position = this.GetPosition().position;
         topic.Action = GetAction();
 
         foreach (var id in this.GetOutputs())

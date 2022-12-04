@@ -17,7 +17,7 @@ public class DialogManager
     {
         _dialog = dialog;
         _globalCtx = globalCtx;
-        _topics = _dialog.Topics.ToDictionary(it => it.PropId, it => it);
+        _topics = _dialog.Topics.ToDictionary(it => it.Id, it => it);
         EvaluateTopics();
     }
 
@@ -29,21 +29,21 @@ public class DialogManager
             switch (topic)
             {
                 case ExactAnswer ea:
-                    nonStartTopics.Add(topic.PropId);
+                    nonStartTopics.Add(topic.Id);
                     foreach (var next in ea.NextTopicIds)
                     {
                         nonStartTopics.Add(next);
                     }
                     break;
                 case Condition c:
-                    nonStartTopics.Add(topic.PropId);
+                    nonStartTopics.Add(topic.Id);
                     foreach (var next in c.Cases)
                     {
                         nonStartTopics.Add(next.NextId);
                     }
                     break;
                 case DialogAction a:
-                    nonStartTopics.Add(topic.PropId);
+                    nonStartTopics.Add(topic.Id);
                     break;
             }
         }
