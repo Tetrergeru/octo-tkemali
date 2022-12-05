@@ -1,6 +1,7 @@
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class UniqueId : MonoBehaviour
@@ -16,6 +17,7 @@ public class UniqueId : MonoBehaviour
     public void RegenerateId()
     {
         Id = RandomId(10);
+        EditorUtility.SetDirty(this);
     }
 
     public static string RandomId(int length)

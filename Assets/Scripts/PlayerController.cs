@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            obj.SendMessage("Activate", Player);
+            obj.SendMessageUpwards("Activate", Player);
         }
     }
 
