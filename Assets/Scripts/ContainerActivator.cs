@@ -10,6 +10,6 @@ public class ContainerActivator : MonoBehaviour
     public void Activate(GameObject sender)
     {
         var menuManager = sender.GetComponent<MenuManager>();
-        menuManager.OpenInventory(Inventory, ContainerName);
+        menuManager.OpenContainer(Inventory, ContainerName);
     }
 }

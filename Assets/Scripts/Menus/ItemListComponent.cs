@@ -38,8 +38,8 @@ public class ItemListComponent : MonoBehaviour
         var button = panelObject.AddComponent<Button>();
         button.onClick.AddListener(() => OnClick(item));
 
-        InventoryMenu.AddText(new Vector3(-100, 0, 0), item.Item.Name, panelObject);
-        InventoryMenu.AddText(new Vector3(240, 0, 0), $"{item.Quantity}", panelObject);
+        ContainerMenu.AddText(new Vector3(-100, 0, 0), item.Item.Name, panelObject);
+        ContainerMenu.AddText(new Vector3(240, 0, 0), $"{item.Quantity}", panelObject);
 
         return panelObject;
     }

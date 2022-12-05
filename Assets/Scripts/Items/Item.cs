@@ -22,4 +22,15 @@ public class Item : ScriptableObject
         if (Id == null || Id == "")
             Id = UniqueId.RandomId(10);
     }
+
+    public bool Consume(PlayerController playerController)
+    {
+        if (Type == ItemType.Food)
+        {
+            playerController.PlayerAttributes.Fatigue += 10;
+            return true;
+        }
+
+        return false;
+    }
 }

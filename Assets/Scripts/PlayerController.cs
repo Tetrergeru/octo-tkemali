@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(MenuManager))]
 public class PlayerController : MonoBehaviour
 {
     public GameObject MainCamera;
@@ -11,12 +12,14 @@ public class PlayerController : MonoBehaviour
     public ControlsSettings ControlsSettings;
     public PlayerAttributes PlayerAttributes;
     public GameObject Coursor;
+    public JumpController JumpController;
 
     private bool _contolsActive = true;
+    private MenuManager _menuManager;
 
     void Start()
     {
-        _jumpController = GetComponentInChildren<JumpController>();
+        _menuManager = GetComponent<MenuManager>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
             UpdatePosition();
             UpdateActivation();
         }
+        UpdateInventoryKeys();
     }
 
     public void DisableControls()
@@ -42,7 +46,17 @@ public class PlayerController : MonoBehaviour
         _contolsActive = true;
     }
 
-    private JumpController _jumpController;
+    void UpdateInventoryKeys()
+    {
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            _menuManager.OpenInventory();
+        }
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            _menuManager.ExitMenu();
+        }
+    }
 
     void UpdateRotation()
     {
@@ -87,7 +101,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             var jumpMulitplyer = PlayerAttributes.Fatigue > ControlsSettings.JumpFatigue ? 1.0f : 0.5f;
-            if (_jumpController.Jump(ControlsSettings.JumpForce * jumpMulitplyer))
+            if (JumpController.Jump(ControlsSettings.JumpForce * jumpMulitplyer))
             {
                 PlayerAttributes.Fatigue -= ControlsSettings.JumpFatigue;
             };
