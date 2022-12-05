@@ -23,7 +23,7 @@ public class DroppedItem : MonoBehaviour
     }
 #endif
 
-    void InstantiateIfNecessary()
+    public void InstantiateIfNecessary()
     {
         if (Item.Item != null)
         {
