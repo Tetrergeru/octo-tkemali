@@ -11,6 +11,8 @@ public class Gizmo : MonoBehaviour
     }
     public Color Color = Color.white;
 
+    public bool Enabled = true;
+
     public GizmoType Type;
 
     public Vector3 Scale = new Vector3(1, 1, 1);
@@ -20,6 +22,11 @@ public class Gizmo : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (!Enabled)
+        {
+            return;
+        }
+
         if (_transform == null)
         {
             _transform = GetComponent<Transform>();
