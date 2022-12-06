@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 7be33c8005e7e96b683d43602a385c47
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PathMarkerPrefab: {fileID: 2828060340954563093, guid: adee679d8cee4645e9e7e166a72a6823, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
