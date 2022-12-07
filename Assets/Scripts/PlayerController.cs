@@ -16,11 +16,14 @@ public class PlayerController : MonoBehaviour
 
     private bool _contolsActive = true;
     private MenuManager _menuManager;
+    private Transform _spawnPoint;
 
     void Start()
     {
         _menuManager = GetComponent<MenuManager>();
+        _spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
         Cursor.lockState = CursorLockMode.Locked;
+        MoveToSpawnpoint();
     }
 
     void Update()
@@ -44,6 +47,11 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _contolsActive = true;
+    }
+
+    public void Die()
+    {
+        MoveToSpawnpoint();
     }
 
     void UpdateInventoryKeys()
@@ -123,6 +131,11 @@ public class PlayerController : MonoBehaviour
         {
             obj.SendMessageUpwards("Activate", Player);
         }
+    }
+
+    void MoveToSpawnpoint()
+    {
+        this.transform.position = _spawnPoint.position;
     }
 
     GameObject FindWAILA()

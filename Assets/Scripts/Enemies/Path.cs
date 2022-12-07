@@ -25,13 +25,19 @@ public class Path : MonoBehaviour
         ? new Vector3()
         : PathMarkers[PathMarkers.Count - 1].localPosition;
 
-    public Vector3 this[int value] => PathMarkers[value].position;
+    public Vector3 this[int value] => value < PathMarkers.Count
+        ? PathMarkers[value].position
+        : PathMarkers[PathMarkers.Count - value + 1].position;
 
-    public int NextMarker(int currentMarker, int prevMarker = -1)
+    public int NextMarker(int currentMarker)
     {
-        if (prevMarker == -1)
+        if (_patrolingType == PatrolingType.Loop)
         {
             return (currentMarker + 1) % PathMarkers.Count;
+        }
+        else if (_patrolingType == PatrolingType.BackAndForth)
+        {
+            return (currentMarker + 1) % (PathMarkers.Count * 2 - 2);
         }
 
         return currentMarker;

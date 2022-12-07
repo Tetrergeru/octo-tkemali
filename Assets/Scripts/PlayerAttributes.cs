@@ -30,6 +30,11 @@ public class PlayerAttributes : MonoBehaviour
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
             HealthGauge.Value = _health / MaxHealth;
+            if (_health == 0)
+            {
+                this.GetComponent<PlayerController>().Die();
+                Health = MaxHealth / 2;
+            }
         }
     }
 
