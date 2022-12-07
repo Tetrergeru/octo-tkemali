@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4493339817634120720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71, z: 0}
+  m_LocalPosition: {x: 0, y: 0.231, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -547,8 +547,8 @@ MonoBehaviour:
   Player: {fileID: 0}
   Eye: {fileID: 9111531442652992539}
   Path: {fileID: 0}
-  ViewDistance: 100
-  FieldOfView: 360
+  ViewDistance: 15
+  FieldOfView: 70
 --- !u!4 &2978731064751281734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9197774472321975010, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}

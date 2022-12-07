@@ -7,6 +7,9 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     [SerializeField]
+    private Color _linkColor = Color.white;
+
+    [SerializeField]
     private List<Transform> PathMarkers = new List<Transform>();
 
     [SerializeField]
@@ -68,6 +71,8 @@ public class Path : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = _linkColor;
+
         for (var i = 0; i < PathMarkers.Count - 1; i++)
         {
             Gizmos.DrawLine(PathMarkers[i].position, PathMarkers[i + 1].position);

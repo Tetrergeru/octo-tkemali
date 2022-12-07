@@ -14,6 +14,9 @@ public class EnemyChase : MonoBehaviour
 
     private int _currentMarkerId;
     private Vector3 _currentMarker;
+    private float _detectionPrecent;
+
+    public float DetectionPercent => _detectionPrecent;
 
 
     void Start()
@@ -24,45 +27,38 @@ public class EnemyChase : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         if (Path != null && Vector3.Distance(transform.position, _currentMarker) < 1.5f)
         {
             SetCurrentMarker(Path.NextMarker(_currentMarkerId));
         }
-        DoISee(Player);
+        Debug.Log($"{(DoISee(Player) ? "See" : "Don't see")}");
     }
 
-    private bool DoISee(Transform transform)
+    private bool DoISee(Transform @object)
     {
         var eyePos = Eye.position;
         var playerPos = Player.position;
         var direction = playerPos - eyePos;
 
-        Debug.DrawLine(eyePos, playerPos, Color.red, 0.1f);
+        Debug.DrawLine(eyePos, eyePos + direction, Color.red, 0.1f);
+        Debug.DrawLine(eyePos, eyePos + transform.forward * ViewDistance, Color.blue, 0.1f);
+
+        var angle = Vector3.Angle(direction, transform.forward);
+        if (angle >= FieldOfView)
+        {
+            return false;
+        }
 
         var ray = new Ray(eyePos, direction);
         var hit = Physics.Raycast(ray, out var obj, ViewDistance);
         if (!hit)
         {
-            Debug.Log($"DoISee NoHit");
             return false;
         }
 
-        if (!obj.transform.IsChildOf(transform) && obj.transform != transform)
-        {
-            Debug.Log($"DoISee IsNotChild (tag = {obj.transform.gameObject.name})");
-            return false;
-        }
-
-        var angle = Vector3.Angle(direction, transform.forward);
-
-        if (angle >= FieldOfView)
-        {
-            Debug.Log($"DoISee angle ({angle}) >= FieldOfView ({FieldOfView})");
-        }
-        return angle < FieldOfView;
+        return obj.transform.IsChildOf(@object) || obj.transform == @object;
     }
 
     private void SetCurrentMarker(int id)
