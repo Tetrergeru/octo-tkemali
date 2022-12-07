@@ -544,12 +544,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 1330419993}
-  Player: {fileID: 0}
-  Eye: {fileID: 9111531442652992539}
+--- !u!114 &4374688589552059854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685079801457235000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1830be272e492832ac586c2637de6be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavMeshAgent: {fileID: 1330419993}
   Path: {fileID: 0}
+--- !u!114 &7306847824153438861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685079801457235000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8d5635e7054991aa765f306e4b8a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detector: {fileID: 4284161861710793128}
+  _chaseBehavoiur: {fileID: 1330419998}
+  _patrolBehaviour: {fileID: 4374688589552059854}
+  _body: {fileID: 7929160752379866120}
+  _chaseMaterial: {fileID: 2100000, guid: 70cfc045d7ffcf2388a0d5ced21285eb, type: 2}
+  _patrolMaterial: {fileID: 2100000, guid: a7c8e775344e2c6be9729a9b1fb0504f, type: 2}
+--- !u!114 &4284161861710793128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685079801457235000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15f6bafa2c9eaabc841a3808f582077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eye: {fileID: 9111531442652992539}
   ViewDistance: 15
-  FieldOfView: 70
-  DetectionPerSecond: 0.2
+  FieldOfView: 60
+  DetectionPerSecond: 0.1
+  _detectionThreshold: 0.5
 --- !u!4 &2978731064751281734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9197774472321975010, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
