@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour
 {
     public float MaxFatigue = 100;
+    public float MaxHealth = 100;
     public ControlsSettings ControlsSettings;
     public GaugeComponent FatigueGauge;
+    public GaugeComponent HealthGauge;
 
     private float _fatigue;
+    private float _health;
 
     public float Fatigue
     {
@@ -20,13 +23,25 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 
+    public float Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            HealthGauge.Value = _health / MaxHealth;
+        }
+    }
+
     void Start()
     {
         Fatigue = MaxFatigue;
+        Health = MaxHealth;
     }
 
     void Update()
     {
         Fatigue += ControlsSettings.FatigueRegenPerSecond * Time.deltaTime;
+        Health += ControlsSettings.HealthRegenPerSecond * Time.deltaTime;
     }
 }

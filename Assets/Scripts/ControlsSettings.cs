@@ -12,4 +12,5 @@ public class ControlsSettings : ScriptableObject
     public float RunFatiguePerSecond = 10;
     public float JumpFatigue = 20;
     public float FatigueRegenPerSecond = 5;
+    public float HealthRegenPerSecond = 1;
 }

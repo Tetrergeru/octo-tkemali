@@ -3,23 +3,15 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    public Action OnPlayerDetected = () => {};
-    public Action OnPlayerLost = () => {};
+    public Action OnPlayerDetected = () => { };
+    public Action OnPlayerLost = () => { };
 
-    [SerializeField]
-    private Transform _eye;
-
-    [SerializeField]
-    private float ViewDistance;
-
-    [SerializeField]
-    private float FieldOfView;
-
-    [SerializeField]
-    private float DetectionPerSecond;
-
-    [SerializeField]
-    private float _detectionThreshold;
+    [SerializeField] private Transform _eye;
+    [SerializeField] private float _viewDistance;
+    [SerializeField] private float _fieldOfView;
+    [SerializeField] private float _detectionPerSecond;
+    [SerializeField] private float _loseSightPerSecond;
+    [SerializeField] private float _detectionThreshold;
 
     private Transform _player;
     private float _detectionPercent;
@@ -36,9 +28,9 @@ public class Detector : MonoBehaviour
     void Update()
     {
         if (DoISee(_player))
-            _detectionPercent += Time.deltaTime * DetectionPerSecond * _playerVisibility.Visibility;
+            _detectionPercent += Time.deltaTime * _detectionPerSecond * _playerVisibility.Visibility;
         else
-            _detectionPercent -= Time.deltaTime * DetectionPerSecond;
+            _detectionPercent -= Time.deltaTime * _loseSightPerSecond;
 
         _detectionPercent = Mathf.Clamp01(_detectionPercent);
 
@@ -63,16 +55,16 @@ public class Detector : MonoBehaviour
         var direction = playerPos - eyePos;
 
         Debug.DrawLine(eyePos, eyePos + direction, Color.red, 0.1f);
-        Debug.DrawLine(eyePos, eyePos + transform.forward * ViewDistance, Color.blue, 0.1f);
+        Debug.DrawLine(eyePos, eyePos + transform.forward * _viewDistance, Color.blue, 0.1f);
 
         var angle = Vector3.Angle(direction, transform.forward);
-        if (angle >= FieldOfView)
+        if (angle >= _fieldOfView)
         {
             return false;
         }
 
         var ray = new Ray(eyePos, direction);
-        var hit = Physics.Raycast(ray, out var obj, ViewDistance);
+        var hit = Physics.Raycast(ray, out var obj, _viewDistance);
         if (!hit)
         {
             return false;

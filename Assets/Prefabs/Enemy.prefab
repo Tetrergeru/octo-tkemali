@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 2978731064751281734}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5040565808515802402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5671705016743190281}
+  m_Layer: 0
+  m_Name: Cannon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5671705016743190281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5040565808515802402}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.67, z: 0.716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2978731064751281734}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5206282022677057706
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +575,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 1330419993}
+  DistanceFromPlayer: 5
+  ProjectileCooldown: 3
+  ProjectilePrefab: {fileID: 4278092687346191519, guid: 74de7aa3ecc66b150b3e580bb508b779, type: 3}
+  ProjectileStartPoint: {fileID: 5671705016743190281}
+--- !u!114 &4284161861710793128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685079801457235000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15f6bafa2c9eaabc841a3808f582077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eye: {fileID: 9111531442652992539}
+  _viewDistance: 15
+  _fieldOfView: 60
+  _detectionPerSecond: 1
+  _loseSightPerSecond: 0.1
+  _detectionThreshold: 0.5
 --- !u!114 &4374688589552059854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,23 +629,6 @@ MonoBehaviour:
   _body: {fileID: 7929160752379866120}
   _chaseMaterial: {fileID: 2100000, guid: 70cfc045d7ffcf2388a0d5ced21285eb, type: 2}
   _patrolMaterial: {fileID: 2100000, guid: a7c8e775344e2c6be9729a9b1fb0504f, type: 2}
---- !u!114 &4284161861710793128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685079801457235000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15f6bafa2c9eaabc841a3808f582077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eye: {fileID: 9111531442652992539}
-  ViewDistance: 15
-  FieldOfView: 60
-  DetectionPerSecond: 0.1
-  _detectionThreshold: 0.5
 --- !u!4 &2978731064751281734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9197774472321975010, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}

@@ -21,6 +21,7 @@ public class PatrolBehavoiur : MonoBehaviour
     public void SetActive()
     {
         _active = true;
+        NavMeshAgent.stoppingDistance = 0;
 
         if (Path == null) return;
 
