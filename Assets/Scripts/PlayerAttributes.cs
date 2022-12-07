@@ -6,6 +6,7 @@ public class PlayerAttributes : MonoBehaviour
 {
     public float MaxFatigue = 100;
     public ControlsSettings ControlsSettings;
+    public GaugeComponent FatigueGauge;
 
     private float _fatigue;
 
@@ -14,31 +15,18 @@ public class PlayerAttributes : MonoBehaviour
         get => _fatigue;
         set
         {
-            _fatigue = Mathf.Min(Mathf.Max(value, 0), MaxFatigue);
-            RedrawGauge();
+            _fatigue = Mathf.Clamp(value, 0, MaxFatigue);
+            FatigueGauge.Value = _fatigue / MaxFatigue;
         }
     }
 
-    public GameObject FatigueGauge;
-
     void Start()
     {
-        _fatigue = MaxFatigue;
-        RedrawGauge();
+        Fatigue = MaxFatigue;
     }
 
     void Update()
     {
         Fatigue += ControlsSettings.FatigueRegenPerSecond * Time.deltaTime;
-    }
-
-    private void RedrawGauge()
-    {
-        var transform = FatigueGauge.GetComponent<RectTransform>();
-        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 200 * Fatigue / MaxFatigue);
-
-        var position = transform.localPosition;
-        var rotation = transform.localRotation;
-        transform.SetLocalPositionAndRotation(new Vector3(-100 + 100 * Fatigue / MaxFatigue, position.y, position.z), rotation);
     }
 }

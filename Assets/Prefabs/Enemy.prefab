@@ -549,6 +549,7 @@ MonoBehaviour:
   Path: {fileID: 0}
   ViewDistance: 15
   FieldOfView: 70
+  DetectionPerSecond: 0.2
 --- !u!4 &2978731064751281734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9197774472321975010, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}

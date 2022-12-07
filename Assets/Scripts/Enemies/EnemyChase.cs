@@ -11,16 +11,16 @@ public class EnemyChase : MonoBehaviour
     public Path Path;
     public float ViewDistance;
     public float FieldOfView;
+    public float DetectionPerSecond;
 
     private int _currentMarkerId;
     private Vector3 _currentMarker;
-    private float _detectionPrecent;
-
-    public float DetectionPercent => _detectionPrecent;
-
+    private float _detectionPercent;
+    private PlayerVisibility _playerVisibility;
 
     void Start()
     {
+        _playerVisibility = Player.gameObject.GetComponent<PlayerVisibility>();
         if (Path != null)
         {
             SetCurrentMarker(Path.GetNearestMarker(transform.position));
@@ -33,7 +33,19 @@ public class EnemyChase : MonoBehaviour
         {
             SetCurrentMarker(Path.NextMarker(_currentMarkerId));
         }
-        Debug.Log($"{(DoISee(Player) ? "See" : "Don't see")}");
+        if (DoISee(Player))
+        {
+            _detectionPercent += Time.deltaTime
+                * DetectionPerSecond
+                * _playerVisibility.Visibility;
+        }
+        else
+        {
+            _detectionPercent -= Time.deltaTime * DetectionPerSecond;
+        }
+        _detectionPercent = Mathf.Clamp01(_detectionPercent);
+
+        _playerVisibility.UpdateVisibility(_detectionPercent);
     }
 
     private bool DoISee(Transform @object)
