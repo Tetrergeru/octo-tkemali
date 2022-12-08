@@ -23,6 +23,13 @@ public class Evaluator
                 var id = args[0];
                 var quantity = int.Parse(args[1]);
                 return ctx.PlayerInventory.RemoveItems(ctx.AllItems[id], quantity).ToString();
+            },
+            ["GiveToPlayer"] = (ctx, args) =>
+            {
+                var id = args[0];
+                var quantity = int.Parse(args[1]);
+                ctx.PlayerInventory.AddItems(ctx.AllItems[id], quantity);
+                return "true";
             }
         };
 

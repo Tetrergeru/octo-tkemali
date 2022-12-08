@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GaugeComponent : MonoBehaviour
 {
@@ -57,5 +58,10 @@ public class GaugeComponent : MonoBehaviour
         };
         _gauge.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         _gauge.SetLocalPositionAndRotation(new Vector3(offset, 0, 0), new Quaternion());
+    }
+
+    public void SetColor(Color color)
+    {
+        _gauge.GetComponent<Image>().color = color;
     }
 }

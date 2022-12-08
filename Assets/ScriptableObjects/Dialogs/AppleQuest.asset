@@ -149,16 +149,19 @@ MonoBehaviour:
   - Id: ea598076-4856-4435-8803-7ea853e1eff3
     Position: {x: 1115, y: 399}
     Script: set quest_apple  = 50
-  - Id: 5766852b-56c2-4d66-8771-cc5d6715e34c
-    Position: {x: 1115, y: 278}
-    Script: 'TakeFromPlayer("apple", 1);
-
-      set quest_apple = 100;'
   - Id: f985c168-2973-49d3-96c2-b45e7e151fbe
     Position: {x: 450, y: 629}
     Script: 'TakeFromPlayer("apple", 1);
 
       set quest_apple = 100;'
+  - Id: 5766852b-56c2-4d66-8771-cc5d6715e34c
+    Position: {x: 1147, y: 254}
+    Script: 'TakeFromPlayer("apple", 1);
+
+      set quest_apple = 100;
+
+      GiveToPlayer("invisibility_potion",
+      2);'
   QuestionConditions:
   - Id: 6f09a6d9-0ac3-469b-82b5-fca09ed9ae28
     Position: {x: -646, y: 750}

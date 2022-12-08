@@ -10,8 +10,33 @@ public class PlayerVisibility : MonoBehaviour
     private float _previousVisibility = -1;
     private float _visibility = 0;
 
+
+    // Temporary crutch
+    public float InvisibilityTime { get; set; }
+    public float MaxInvisibilityTime => 10;
+
+    void Update()
+    {
+        InvisibilityTime -= Time.deltaTime;
+        if (InvisibilityTime < 0)
+            InvisibilityTime = 0;
+
+        if (InvisibilityTime != 0)
+        {
+            VisibilityGauge.SetColor(Color.blue);
+            VisibilityGauge.Value = InvisibilityTime / MaxInvisibilityTime;
+        }
+        else
+        {
+            VisibilityGauge.SetColor(Color.white);
+        }
+    }
+
     void LateUpdate()
     {
+        if (InvisibilityTime != 0)
+            return;
+
         if (_previousVisibility != _visibility)
         {
             VisibilityGauge.Value = _visibility;
@@ -21,7 +46,7 @@ public class PlayerVisibility : MonoBehaviour
         _visibility = 0;
     }
 
-    public float Visibility => 1.0f;
+    public float Visibility => InvisibilityTime != 0 ? 0 : 1.0f;
 
     public void UpdateVisibility(float value)
     {

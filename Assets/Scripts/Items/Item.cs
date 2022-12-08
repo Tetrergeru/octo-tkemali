@@ -29,8 +29,16 @@ public class Item : ScriptableObject
     {
         if (Type == ItemType.Food)
         {
-            playerController.PlayerAttributes.Fatigue += 10;
-            return true;
+            switch (Id)
+            {
+                case "apple":
+                    playerController.PlayerAttributes.Fatigue += 10;
+                    return true;
+                case "invisibility_potion":
+                    var visibility = playerController.GetComponent<PlayerVisibility>();
+                    visibility.InvisibilityTime = visibility.MaxInvisibilityTime;
+                    return true;
+            }
         }
 
         return false;

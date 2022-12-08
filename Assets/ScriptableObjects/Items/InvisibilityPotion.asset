@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c268d29a2225569f94887907dfcd9de, type: 3}
+  m_Name: InvisibilityPotion
+  m_EditorClassIdentifier: 
+  Name: Invisibility Potion
+  Type: 1
+  Weight: 0
+  Price: 0
+  Id: invisibility_potion
+  Prefab: {fileID: 8549125195747766242, guid: 89fa581324ce63c7b8fced0b83e7a388, type: 3}

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c268d29a2225569f94887907dfcd9de, type: 3}
-  m_Name: Cube
+  m_Name: CubeBlack
   m_EditorClassIdentifier: 
-  Name: Cube
+  Name: Cube Black
   Type: 0
   Weight: 0
   Price: 0
-  Id: 17c8ecc632
-  Prefab: {fileID: 8549125195747766242, guid: 93c08829080a55ef4a77dc55a992bc30, type: 3}
+  Id: cube_black
+  Prefab: {fileID: 8549125195747766242, guid: 4a12e97bfe7908c438feceb31c4fc3d3, type: 3}
