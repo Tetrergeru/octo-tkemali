@@ -29,7 +29,11 @@ public class DroppedItem : MonoBehaviour
         {
             if (Object == null)
             {
+#if UNITY_EDITOR
                 Object = (GameObject)PrefabUtility.InstantiatePrefab(Item.Item.Prefab);
+#else
+                Object = Instantiate(Item.Item.Prefab);
+#endif
                 Object.transform.parent = this.transform;
                 Object.transform.localPosition = new Vector3();
                 foreach (var transform in Object.GetComponentsInChildren<Transform>())
