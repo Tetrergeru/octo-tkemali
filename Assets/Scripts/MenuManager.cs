@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public GameObject ContainerMenuPrefab;
     public GameObject DialogMenuPrefab;
     public GameObject InventoryMenuPrefab;
+    public ItemDatabase ItemDatabase;
 
     private MenuState _state;
     private GameObject _currentMenu;
@@ -22,7 +24,8 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        GlobalCtx = new GlobalCtx(GetComponent<Inventory>());
+        Debug.Log($"ItemDatabase.Items.Count = {ItemDatabase.Items.Count()}");
+        GlobalCtx = new GlobalCtx(GetComponent<Inventory>(), ItemDatabase);
     }
 
     public void ExitMenu()

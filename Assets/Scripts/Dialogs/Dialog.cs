@@ -56,9 +56,11 @@ public class Dialog : ScriptableObject
         }
     }
 
+#if UNITY_EDITOR
     public void Persist()
     {
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssetIfDirty(AssetDatabase.GUIDFromAssetPath(AssetDatabase.GetAssetPath(this)));
     }
+#endif
 }

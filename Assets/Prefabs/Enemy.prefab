@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 1330419993}
   DistanceFromPlayer: 5
+  DistanceFromPlayerToShoot: 10
   ProjectileCooldown: 3
   ProjectilePrefab: {fileID: 4278092687346191519, guid: 74de7aa3ecc66b150b3e580bb508b779, type: 3}
   ProjectileStartPoint: {fileID: 5671705016743190281}

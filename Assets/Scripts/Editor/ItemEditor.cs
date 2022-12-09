@@ -21,7 +21,6 @@ public class ItemEditor : Editor
         }
         else if (e.type == EventType.DragPerform)
         {
-            Debug.Log("Drag performed");
             DragAndDrop.AcceptDrag();
             e.Use();
             var ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 
 public class GlobalCtx
 {
@@ -8,13 +7,11 @@ public class GlobalCtx
     public Dictionary<string, Item> AllItems;
     public Inventory PlayerInventory;
 
-    public GlobalCtx(Inventory playerInventory)
+    public GlobalCtx(Inventory playerInventory, ItemDatabase itemDatabase)
     {
         PlayerInventory = playerInventory;
-        AllItems = AssetDatabase.FindAssets($"t:{typeof(Item).Name}").
-            Select(AssetDatabase.GUIDToAssetPath).
-            Select(AssetDatabase.LoadAssetAtPath<Item>).
-            ToDictionary(it => it.Id, it => it);
+        AllItems = itemDatabase.Items
+            .ToDictionary(it => it.Id, it => it);
     }
 
     public string Evaluate(string expr)

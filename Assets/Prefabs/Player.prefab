@@ -352,20 +352,60 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
       propertyPath: Color.b
-      value: 0.10208988
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
       propertyPath: Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
       propertyPath: Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195172678409836221, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Scale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3737924971467249556, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
       propertyPath: Id
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Scale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828867228053354906, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
+      propertyPath: Scale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8336385990569279644, guid: 59ac7facf7209b61eb937e23d0525f87, type: 3}
       propertyPath: m_Name
@@ -468,6 +508,7 @@ MonoBehaviour:
   ContainerMenuPrefab: {fileID: 5249732838454873945, guid: 7174d736666604d6eabb8c3f9c8a158a, type: 3}
   DialogMenuPrefab: {fileID: 6008558398361945241, guid: a279b9b7f9683a1288bba91f7d6ae520, type: 3}
   InventoryMenuPrefab: {fileID: 5249732838454873945, guid: d16875d52a88c09c18549260069cebde, type: 3}
+  ItemDatabase: {fileID: 11400000, guid: e6626ea03b6d943f2a537f7e181f5bff, type: 2}
 --- !u!114 &4327435741198682474
 MonoBehaviour:
   m_ObjectHideFlags: 0

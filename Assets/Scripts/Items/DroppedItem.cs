@@ -38,7 +38,10 @@ public class DroppedItem : MonoBehaviour
                 Object.transform.localPosition = new Vector3();
                 foreach (var transform in Object.GetComponentsInChildren<Transform>())
                     transform.tag = "Activator";
+
+#if UNITY_EDITOR
                 EditorUtility.SetDirty(this);
+#endif
             }
         }
         else

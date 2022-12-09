@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +20,10 @@ public class Item : ScriptableObject
     {
         if (Id == null || Id == "")
             Id = UniqueId.RandomId(10);
+
+#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
+#endif
     }
 
     public bool Consume(PlayerController playerController)

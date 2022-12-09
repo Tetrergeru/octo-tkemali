@@ -17,7 +17,10 @@ public class UniqueId : MonoBehaviour
     public void RegenerateId()
     {
         Id = RandomId(10);
+
+#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
+#endif
     }
 
     public static string RandomId(int length)
