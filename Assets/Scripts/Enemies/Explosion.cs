@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
 
     void Start()
     {
-        DieOverLifetime(_particles.main.duration);
+        StartCoroutine(DieOverLifetime(_particles.main.duration));
     }
 
     IEnumerator DieOverLifetime(float lifetime)
