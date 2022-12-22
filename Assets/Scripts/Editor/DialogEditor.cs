@@ -14,12 +14,6 @@ public class DialogEditor : Editor
             editor.Load((Dialog)target);
         }
         DrawDefaultInspector();
-        // if (GUILayout.Button("Clear"))
-        // {
-        //     var dialog = (Dialog)target;
-        //     dialog.Clear();
-        //     dialog.Persist();
-        // }
     }
 }
 
